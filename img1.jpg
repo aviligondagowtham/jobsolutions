@@ -1,0 +1,2274 @@
+<!DOCTYPE html>
+
+<!--[if IE 8 ]><html lang="en" class="ie ie8 oldie desktop no-touch" xmlns="http://www.w3.org/1999...>
+<!--[if IE 9 ]><html lang="en" class="ie ie9 desktop no-touch" xmlns="http://www.w3.org/1999...>
+<!--[if (gt IE 9)|!(IE)]><!--><html lang="en"><!--<![endif]-->
+	
+
+	<head>
+	
+	
+
+	
+	<title>Behind the Scenes: The Making of our Ohana Workplace Design - Salesforce Blog</title>
+	
+	
+	<meta http-equiv="X-UA-Compatible" content="IE=11; IE=10; IE=9; IE=8; IE=7; IE=EDGE"/>
+	
+
+
+
+
+
+
+
+
+    
+<script type="text/javascript" src="//c1.sfdcstatic.com/etc.clientlibs/clientlibs/granite/jquery.min.772fb04d4ce536dfb06c17e789ad4dbd.js"></script>
+<script type="text/javascript" src="//c1.sfdcstatic.com/etc.clientlibs/clientlibs/granite/utils.min.a53a609d64abb59ba4017351854c46d0.js"></script>
+<script type="text/javascript" src="//c1.sfdcstatic.com/etc.clientlibs/clientlibs/granite/jquery/granite.min.a6c15d5e8643e4b9e6a6845ada2e7a36.js"></script>
+<script type="text/javascript" src="//c1.sfdcstatic.com/etc/clientlibs/granite/jquery/granite.min.5ccb0d12b9518d920111690f39f2e108.js"></script>
+<script type="text/javascript" src="//c1.sfdcstatic.com/etc.clientlibs/foundation/clientlibs/jquery.min.dd9b395c741ce2784096e26619e14910.js"></script>
+
+
+
+
+
+
+    <script src="https://a.sfdcstatic.com/www/prod/oneTrust/onetrustConsent.js" type="text/javascript" charset="UTF-8"></script>
+    <script>
+        <!-- /* OneTrust callback */ -->
+        function OptanonWrapper() {
+            // Push a oneTrust group update event to dataLayer
+            if (window.dataLayer) {
+                window.dataLayer.push({event: 'OneTrustGroupsUpdated'});
+            }
+            //Check if user's cookies are enabled, if not remove One Trust from page
+            var cookies = ("cookie" in document && (document.cookie.length > 0 || (document.cookie = "test").indexOf.call(document.cookie, "test") > -1));
+            if (!cookies) {
+                var box = document.getElementsByClassName('optanon-alert-box-wrapper')[0];
+                box.remove();
+                var bg = document.getElementById("optanon");
+                bg.remove();
+                return;
+            }
+            try {
+                //Check if current page is Privacy page, if so do not display One Trust modal
+                if(typeof digitalData !== "undefined") {
+                    if(digitalData.page.pagename.indexOf(":company:privacy") > -1){
+                        var el = document.getElementsByClassName("optanon-alert-box-wrapper");
+                        var bg = [document.getElementById("optanon-popup-bg")];
+                        function getCookie(name) {
+                            var value = "; " + document.cookie;
+                            var parts = value.split("; " + name + "=");
+                            if (parts.length == 2) return parts.pop().split(";").shift();
+                        }
+                        function removeElement(elements) {
+                            if (!getCookie('OptanonAlertBoxClosed')) {
+                                if(elements.length > 0) {
+                                    if(typeof elements[0] != 'undefined' && elements[0] != null){
+                                        elements[0].style.display = "none";
+                                    }
+                                }
+                            }
+                        }
+                        removeElement(bg);
+                        removeElement(el);
+                    }
+                }
+                <!-- /* reinitialize active groups after user updates consent */ -->
+                if (SfdcWwwBase.gdpr) {
+                    SfdcWwwBase.gdpr.init();
+                }
+            }catch(err){
+                console.error(err.message)
+            }
+
+        }
+    </script>
+    
+    
+<link rel="stylesheet" href="//c1.sfdcstatic.com/etc/clientlibs/sfdc-aem-master/clientlibs_onetrust.min.73525970cbec02a855528a56d9a9af6b.css" type="text/css">
+<script type="text/javascript" src="//c1.sfdcstatic.com/etc/clientlibs/sfdc-aem-master/clientlibs_onetrust.min.a8ace6a90db8a25af96ec53e2b34c4a9.js"></script>
+
+
+
+
+
+
+
+
+    
+<script type="text/javascript" src="//c1.sfdcstatic.com/etc.clientlibs/clientlibs/granite/lodash/modern.min.3a0ad4c7614495b1cae264dfcb9b9813.js"></script>
+<script type="text/javascript" src="//c1.sfdcstatic.com/etc/clientlibs/sfdc-aem-master/clientlibs_analytics_top.min.78de5bf4797c8e8c8936c5dbdc189b2b.js"></script>
+
+
+
+
+<!-- Google Tag Manager -->
+
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WRXS6TH');</script>
+
+
+<!-- End Google Tag Manager -->
+
+
+
+
+<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<![endif]-->
+
+
+    
+        <script src="https://cdn.optimizely.com/js/10681260716.js"></script>
+        
+        
+    
+<script type="text/javascript" src="//c1.sfdcstatic.com/etc/clientlibs/sfdc-aem-master/clientlibs_optimizely.min.00b6fc6b17d8fb7c7e2303e34a8ef522.js"></script>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+<!-- BEGIN Salesforce DMP ControlTag for "US Blog" -->
+<script class="kxct" data-id="r9ktjmocd" data-timing="async" data-version="3.0" type="text/javascript">
+    window.Krux||((Krux=function(){Krux.q.push(arguments)}).q=[]);
+    (function(){
+        var k=document.createElement('script');k.type='text/javascript';k.async=true;
+        k.src=(location.protocol==='https:'?'https:':'http:')+'//cdn.krxd.net/controltag/r9ktjmocd.js';
+        var s=document.getElementsByTagName('script')[0];s.parentNode.insertBefore(k,s);
+    }());
+</script>
+<!-- END Salesforce DMP ControlTag -->
+
+
+
+
+<script src="//assets.adobedtm.com/7089d7be7dacc457a8233ff9a3a1a83c5d80ff74/satelliteLib-eb844e404d0d734b7f9841b393b34585463d72b4.js"></script>
+
+
+
+    
+<link rel="stylesheet" href="//c1.sfdcstatic.com/etc/clientlibs/sfdc-aem-master/clientlibs_framework.min.3647a02ea42dcf070ab0fc4772e6dc28.css" type="text/css">
+<link rel="stylesheet" href="//c1.sfdcstatic.com/etc/clientlibs/sfdc-aem-master/clientlibs_blogs_base.min.5e7d7cd988e03627ee16672a0b654a83.css" type="text/css">
+<link rel="stylesheet" href="//c1.sfdcstatic.com/etc/clientlibs/sfdc-aem-master/clientlibs_search.min.917552299622943ba75630286e6fcb00.css" type="text/css">
+<link rel="stylesheet" href="//c1.sfdcstatic.com/etc/clientlibs/sfdc-www/clientlibs_sfdc_forms.min.d41d8cd98f00b204e9800998ecf8427e.css" type="text/css">
+<link rel="stylesheet" href="//c1.sfdcstatic.com/etc/clientlibs/sfdc-blogs-redesign/clientlibs_base.min.dbd1f6abe76df1b19467039b5c5bb458.css" type="text/css">
+
+
+
+
+<link href="//c1.sfdcstatic.com/etc.bundles/sfdc-blogs-redesign/bundles/all.bundle.1bfa638fb0083417eb48.css" rel="stylesheet">
+
+
+
+	
+	
+	
+	
+
+	
+	
+    
+
+
+
+
+	
+	
+
+	
+	<script type="text/javascript">
+		var sfPageData = sfPageData || {};
+		//Not supporting other context
+		sfPageData.locale = "us";
+		sfPageData.blogMeta =  "News";
+		sfPageData.pageCloud =  "No Cloud";
+		sfPageData.blogAuthor =  $.trim('Elizabeth Pinkham').split(' ').reverse().join(', ');
+	</script>
+
+	
+	<link rel="icon" type="image/vnd.microsoft.icon" href="//c1.sfdcstatic.com/etc/designs/sfdc-blogs-redesign/en_us/favicon.ico">
+	<link rel="shortcut icon" type="image/vnd.microsoft.icon" href="//c1.sfdcstatic.com/etc/designs/sfdc-blogs-redesign/en_us/favicon.ico">
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+	
+	<meta name="description" content="At Dreamforce 2015, our CEO Marc Benioff and our leadership team stood in the middle of the Dreamforce Plaza and felt incredibly inspired by the energy culminating from the crowd and the entire experience that felt authentically Salesforce. Marc observed, “This is what our real estate should feel"/>
+	<meta property="og:title" content="Behind the Scenes: The Making of our Ohana Workplace Design"/>
+	<meta property="og:site_name" content="Salesforce Blog"/>
+	<meta property="og:type" content="blog"/>
+	<meta property="og:description"/>
+	<meta property="og:image" content="https://www.salesforce.com/content/dam/blogs/us/thumbnails/salesforce-ohana-workplace-design/ohana_floor_header.jpg"/>
+	<meta property="og:locale" content="us"/>
+	<meta property="fb:app_id" content="206247976178570"/>
+	<meta property="fb:admins" content="626698407"/>
+	
+	
+	
+	<link rel="canonical" href="https://www.salesforce.com/blog/2017/08/salesforce-ohana-workplace-design.html"/>
+    <meta name="twitter:domain" content="www.salesforce.com"/>
+	<meta name="twitter:card" content="summary"/>
+	<meta name="twitter:url" content="https://www.salesforce.com"/>
+	<meta name="twitter:title" content="Behind the Scenes: The Making of our Ohana Workplace Design"/>
+	<meta name="twitter:description"/>
+	<meta/>
+    
+<script type="text/javascript" src="//c1.sfdcstatic.com/etc/designs/blogsRedesign/framework.min.9385453a2ee0993bca7f7ad1f21b9d22.js"></script>
+
+
+
+	
+		
+	
+</head>
+
+	
+
+<body>
+    <!-- call separate file to include any javascript / css needed right at the top of body-->
+    
+
+<!-- Google Tag Manager (noscript) -->
+
+<noscript>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WRXS6TH" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+</noscript>
+
+
+<!-- End Google Tag Manager (noscript) -->
+
+<div aria-hidden="true"><script type="text/javascript" src="//c1.sfdcstatic.com/etc.clientlibs/foundation/clientlibs/shared.min.d8eee0685f08a5253a1d753a2619a08f.js"></script>
+<script type="text/javascript" src="//c1.sfdcstatic.com/etc.clientlibs/cq/personalization/clientlib/personalization/kernel.min.0dee8503aa776977556eea6a54d47dd4.js"></script>
+<script type="text/javascript">
+    $CQ(function() {
+        CQ_Analytics.SegmentMgr.loadSegments("\/etc\/segmentation\/blog");
+        CQ_Analytics.ClientContextUtils.init("\/etc\/clientcontext\/sfdc", "\/content\/blogs\/us\/en\/2017\/08\/salesforce\u002Dohana\u002Dworkplace\u002Ddesign");
+
+        
+    });
+</script>
+</div>
+
+<div aria-hidden="true"></div>
+
+
+    <a class="screen-reader-text" href="#main"><div class="container">Skip to content</div></a>
+<div role="banner">
+    
+    
+    <div class="templateGeneratedStyleClass_ "><div class="page_module page basicpage">
+
+
+    <div><div class="skinnyNavigationBar parbase section"><nav class="skinnynav ">
+    <div class="container skinnynav-header-container">
+        <div class="skinnynav-header row">
+            <div class="logo-container col">
+                <div class="skinnynav-logo">
+    <a href="/blog/" class="
+               
+                image-link" title="Salesforce blog">
+        
+        
+        
+        
+            <img class="lazy hidden-xs hidden-sm  img-responsive         " alt="" src="//c1.sfdcstatic.com/etc/clientlibs/sfdc-aem-master/clientlibs_base/imgs/spacer.gif" data-src="//c1.sfdcstatic.com/content/dam/blogs/us/logo/blog-nav-logo.jpg"/>
+            <img class="lazy hidden-md hidden-lg img-responsive     " alt="" src="//c1.sfdcstatic.com/etc/clientlibs/sfdc-aem-master/clientlibs_base/imgs/spacer.gif" data-src="//c1.sfdcstatic.com/content/dam/blogs/us/logo/blog-nav-logo.jpg"/>
+        
+        
+    </a>
+    
+
+
+</div>
+            </div>
+            <div class="skinnynav-menu-container col">
+                <div class="menu-item-container" role="navigation">
+                    <ul style="background-color: #e6eef4;">
+                        
+                            <li class="overlayMenuItem primary-menu-item border-brand-blue" id="sales_menu_item">
+                                <h2 class="root-nav-heading">
+                                    <a class="skinnynav-expander" href="/blog/category/sales.html">Sales</a>
+                                </h2>
+                            </li>
+                        
+                            <li class="overlayMenuItem primary-menu-item border-brand-blue" id="marketing_menu_item">
+                                <h2 class="root-nav-heading">
+                                    <a class="skinnynav-expander" href="/blog/category/marketing.html">Marketing</a>
+                                </h2>
+                            </li>
+                        
+                            <li class="overlayMenuItem primary-menu-item border-brand-blue" id="customer-service_menu_item">
+                                <h2 class="root-nav-heading">
+                                    <a class="skinnynav-expander" href="/blog/category/customer-service.html">Customer Service</a>
+                                </h2>
+                            </li>
+                        
+                            <li class="overlayMenuItem primary-menu-item border-brand-blue" id="Commerce_menu_item">
+                                <h2 class="root-nav-heading">
+                                    <a class="skinnynav-expander" href="/blog/category/commerce.html">Commerce</a>
+                                </h2>
+                            </li>
+                        
+                            <li class="overlayMenuItem primary-menu-item border-brand-blue" id="it_menu_item">
+                                <h2 class="root-nav-heading">
+                                    <a class="skinnynav-expander" href="/blog/category/it.html">IT</a>
+                                </h2>
+                            </li>
+                        
+                            <li class="overlayMenuItem primary-menu-item border-brand-blue" id="small-business_menu_item">
+                                <h2 class="root-nav-heading">
+                                    <a class="skinnynav-expander" href="/blog/category/small-business.html">Small Business</a>
+                                </h2>
+                            </li>
+                        
+                        <div class="body-overlay"></div>
+                    </ul>
+                </div>
+            </div>
+            <div class="top-section col">
+                <div class="utility-bar">
+                    
+                        
+                        <div class="coveo-form" role="search"><div>
+
+<script>
+
+    if (typeof lodash_loaded === 'undefined' && typeof _ !== 'undefined') {
+        var lodash = _;
+        var lodash_loaded = true ;
+    }
+
+</script>
+
+<script defer type="text/javascript" src="https://static.cloud.coveo.com/searchui/v2.3826/js/CoveoJsSearch.Lazy.min.js"></script>
+
+<script>
+    if (typeof underscore_loaded === 'undefined'  && typeof _ !== 'undefined') {
+        var underscore = _;
+        window._ = lodash;
+        window._.all = underscore.all;
+        window._.contains = underscore.contains;
+        var underscore_loaded = true ;
+    }
+
+</script>
+
+
+<script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", function() {
+        Coveo.SearchEndpoint.configureCloudV2Endpoint('salesforcemarketingg6kzp068', 'xx60f49268-8209-4d84-a2dd-5a6579aaf03f');
+        var root = Coveo.$$(document).find("#coveo-0bdb9053-ce38-4b00-a86d-c8024ea71577");
+        Coveo.Analytics.options.searchHub.defaultValue = 'WWW-Blog-United States';
+
+        // Add ie helper file if needed
+        if (SfdcWwwBase.utils.detectIE() !== false) {
+            Coveo.configureResourceRoot('https://static.cloud.coveo.com/searchui/v2.3826/js/'); 
+        }
+        
+        Coveo.initSearchbox(root, '/blog/search.html');
+    });
+</script>
+<div id="coveo-0bdb9053-ce38-4b00-a86d-c8024ea71577" class=" searchfield-small search-closed">
+    <div class="coveo-search-section" tabindex="0">
+        <div class="icon-sfdc-icon-magnifying-glass"></div>
+        <div class="CoveoSearchbox" data-placeholder="Search" data-enable-omnibox="true" data-enable-search-as-you-type="false" data-enable-query-extension-addon="true" data-enable-wildcards="true" data-enable-question-marks="true" data-enable-lowercase-operators="true" data-enable-partial-match="true"></div>
+    </div>
+</div>
+
+</div>
+
+</div>
+                    
+                    
+                    
+                        <div class="nav-link">
+
+    
+<p id="salesforcecom" class="
+        h4gn
+        text-cirrus
+        text-left
+        salesforce-sans-regular
+        
+        
+        
+        
+        
+        
+        margin-0-top-lg margin-0-bottom-lg
+        " style="; ">
+    
+    <a name="salesforcecom" class="
+            text-cirrus
+            
+            
+            " href="/">
+        
+        
+        <span class="
+            header-text
+            
+            
+            ">
+            
+                Salesforce.com 
+            
+            
+        </span>
+        
+        
+    </a>
+</p>
+
+
+
+</div>
+                    
+                    
+                    
+                    <div class="separator"></div>
+                    
+                        <div class="region-selection region-selector">
+                            <div class="region-selector_button">
+                                <span class="region-selector_icon icon-sfdc-icon-globe"></span>
+                            </div>
+                        </div>
+                    
+                </div>
+                
+                <div class="offer-container">
+                    
+                    
+                        <div class="nav-subscribe"><div class="navOffer buttonCTAComponent parbase">
+<div>
+    <div class="cta_0 buttonCTAItemComponent parbase">
+    
+    
+    
+
+    <div class="btn-container ">
+        <a role="button" class="btn btn-lg btn-nav salesforce-sans-regular    " data-content-replacement-close-color="sfdc-swap-button-day" href="/form/signup/freetrial-sales-essentials/?d=cta-glob-nav-1" target="_blank">
+            
+            
+            <span>
+              
+                Try Salesforce
+              </span>
+            
+
+        </a>
+        
+    </div>
+
+
+</div>
+
+</div>
+</div>
+</div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="bottom-border border-brand-blue"></div>
+</nav>
+
+<nav class="container-fluid header-container mobileSkinnyNav">
+    <div class="navbar">
+        <div class="navbar-header-container">
+            <div class="navbar-header">
+                <button type="button" class="mobile-nav-toggle collapsed" data-toggle="collapse" data-target="#expandablenavigation" aria-label="Navigation Menu">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <div class="navbar-content">
+</div>
+                <div class="navbar-brand">
+    <a href="https://www.salesforce.com/blog" class="
+               
+                image-link">
+        
+        
+        
+        
+            <img class="lazy   img-responsive         " alt="" src="//c1.sfdcstatic.com/etc/clientlibs/sfdc-aem-master/clientlibs_base/imgs/spacer.gif" data-src="//c1.sfdcstatic.com/content/dam/sfdc-docs/www/resources/campaign-assets/9-reasons/images/salesforce-cloud-logo-sm.png"/>
+            
+        
+        
+    </a>
+    
+
+
+</div>
+                
+                
+                <span class="offer-cta-container">
+                    
+                    
+                        <div class="offerCTADefaultPar buttonCTAComponent parbase">
+<div class=" text-center">
+    <div class="cta_0 buttonCTAItemComponent parbase">
+    
+    
+    
+
+    <div class="btn-container ">
+        <a role="button" class="btn btn-lg btn-nav salesforce-sans-regular    " data-content-replacement-close-color="sfdc-swap-button-day" href="/form/signup/freetrial-sales-essentials/?d=cta-glob-nav-1" target="_blank">
+            
+            
+            <span>
+              
+                Try Salesforce
+              </span>
+            
+
+        </a>
+        
+    </div>
+
+
+</div>
+
+</div>
+</div>
+
+                    
+                </span>
+            </div>
+        </div>
+    </div>
+    
+
+    
+</nav>
+<div class="mobile-navigation-drawer mobilenav">
+    <div class="overlay"></div>
+    <div class="mobile-drawer-container">
+        <div class="mobile-drawer-navigation">
+            <div>
+                <div class="drawer-previous">
+                    <span class="salesforce-icon icon-sfdc-icon-left-arrow"></span>
+                </div>
+                <div id="drawer-title" data-default-title="Home">
+                    <span>Home</span>
+                </div>
+                <div class="drawer-close">
+                    <span class="icon-sfdc-icon-x"></span>
+                </div>
+            </div>
+            
+                
+                <div class="coveo-form" role="search"><div>
+
+<script>
+
+    if (typeof lodash_loaded === 'undefined' && typeof _ !== 'undefined') {
+        var lodash = _;
+        var lodash_loaded = true ;
+    }
+
+</script>
+
+<script defer type="text/javascript" src="https://static.cloud.coveo.com/searchui/v2.3826/js/CoveoJsSearch.Lazy.min.js"></script>
+
+<script>
+    if (typeof underscore_loaded === 'undefined'  && typeof _ !== 'undefined') {
+        var underscore = _;
+        window._ = lodash;
+        window._.all = underscore.all;
+        window._.contains = underscore.contains;
+        var underscore_loaded = true ;
+    }
+
+</script>
+
+
+<script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", function() {
+        Coveo.SearchEndpoint.configureCloudV2Endpoint('salesforcemarketingg6kzp068', 'xx60f49268-8209-4d84-a2dd-5a6579aaf03f');
+        var root = Coveo.$$(document).find("#coveo-54c74f70-b938-4c91-bca7-78e5b751adfc");
+        Coveo.Analytics.options.searchHub.defaultValue = 'WWW-Blog-United States';
+
+        // Add ie helper file if needed
+        if (SfdcWwwBase.utils.detectIE() !== false) {
+            Coveo.configureResourceRoot('https://static.cloud.coveo.com/searchui/v2.3826/js/'); 
+        }
+        
+        Coveo.initSearchbox(root, '/search/');
+    });
+</script>
+<div id="coveo-54c74f70-b938-4c91-bca7-78e5b751adfc" class=" searchfield-small search-closed">
+    <div class="coveo-search-section" tabindex="0">
+        <div class="icon-sfdc-icon-magnifying-glass"></div>
+        <div class="CoveoSearchbox" data-placeholder="Search" data-enable-omnibox="true" data-enable-search-as-you-type="false" data-enable-query-extension-addon="true" data-enable-wildcards="true" data-enable-question-marks="true" data-enable-lowercase-operators="true" data-enable-partial-match="true"></div>
+    </div>
+</div>
+
+</div>
+
+</div>
+            
+        </div>
+        <div class="navigation-container drawer-container">
+            
+            <ul class="dynamic-links generic-links" role="navigation">
+                <li>
+                    
+                    
+                    <a href="/blog/category/sales.html" data-target-drawer="sales" class="drawer-link-header ">
+                        
+                        <span class="linktitle">Sales</span>
+                        
+                    </a>
+                    
+                </li>
+            
+                <li>
+                    
+                    
+                    <a href="/blog/category/marketing.html" data-target-drawer="marketing" class="drawer-link-header ">
+                        
+                        <span class="linktitle">Marketing</span>
+                        
+                    </a>
+                    
+                </li>
+            
+                <li>
+                    
+                    
+                    <a href="/blog/category/customer-service.html" data-target-drawer="customer-service" class="drawer-link-header ">
+                        
+                        <span class="linktitle">Customer Service</span>
+                        
+                    </a>
+                    
+                </li>
+            
+                <li>
+                    
+                    
+                    <a href="/blog/category/commerce.html" data-target-drawer="Commerce" class="drawer-link-header ">
+                        
+                        <span class="linktitle">Commerce</span>
+                        
+                    </a>
+                    
+                </li>
+            
+                <li>
+                    
+                    
+                    <a href="/blog/category/it.html" data-target-drawer="it" class="drawer-link-header ">
+                        
+                        <span class="linktitle">IT</span>
+                        
+                    </a>
+                    
+                </li>
+            
+                <li>
+                    
+                    
+                    <a href="/blog/category/small-business.html" data-target-drawer="small-business" class="drawer-link-header ">
+                        
+                        <span class="linktitle">Small Business</span>
+                        
+                    </a>
+                    
+                </li>
+            </ul>
+            
+
+            
+            <div id="drawer_freetrial" class="free-trial-drawer drawer-child drawer-container" data-drawer-title="Free Trial">
+                <ul class="generic-links">
+                    <li>
+                        <a class="drawer-link-header has-child" data-target-drawer="contactus">
+                            <span class="linktitle">Contact US</span>
+                            <span class="haschildIcon"></span>
+                        </a>
+                        <div id="drawer_contactus" class="drawer-child drawer-container" data-drawer-title="Contact US">
+                            <div class="contactForm-container drawer-content">
+                                <iframe id="contactForm" style="visibility: visible;" onload="this.style.visibility = 'visible';" scrolling="no" data-form-height="850" data-form-url="/form/contact/contactme-mobi.jsp?d=70130000000tbuW"> </iframe>
+                                <div class="loading-icon"></div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <div class="freeTrial-container">
+                    <div class="freeTrialHeader salesforce-sans-light">
+                        <span>Get your FREE 30-day trial.</span>
+                        <span class="subHeader">Please complete all fields.</span>
+                        <select id="mobileFormSelect">
+                            <option data-form-url="/form/signup/freetrial-sales-mobi.jsp?d=70130000000tMoI" data-form-height="745">Sales Cloud: World&#39;s #1 CRM</option>
+                        
+                            <option data-form-url="/form/signup/freetrial-service-mobi.jsp?d=70130000000td7L" data-form-height="745">Service Cloud</option>
+                        
+                            <option data-form-url="/form/signup/freetrial-platform-mobi.jsp?d=70130000000td7G" data-form-height="675">Salesforce Platform</option>
+                        </select>
+                    </div>
+                    <iframe id="freeTrialForm" scrolling="no" style="display: inline;"></iframe>
+                    <div class="loading-icon"></div>
+                </div>
+            </div>
+            <div id="drawer_blankform" class="drawer-child drawer-container">
+                <div class="blankForm-container">
+                    <iframe id="blankForm" scrolling="no" style="display: inline;"></iframe>
+                    <div class="loading-icon"></div>
+                </div>
+            </div>
+        </div>
+        <div class="mobile-drawer-footer ">
+            <div class="headingComponent parbase section">
+
+    
+<h2 id="salesforcecom" class="
+        h5gn
+        text-cirrus
+        text-center
+        salesforce-sans-regular
+        
+        
+        
+        
+        
+        
+        
+        " style="; ">
+    
+    <a name="salesforcecom" class="
+            text-cirrus
+            preventHover
+            
+            ">
+        
+        
+        <span class="
+            header-text
+            
+            
+            ">
+            
+                Salesforce.com 
+            
+            
+        </span>
+        
+        
+    </a>
+</h2>
+
+
+
+</div>
+
+
+            <div class="gradient"></div>
+            <div id="default-links">
+                <a href="tel:1-800-667-6389">1-800-667-6389</a>
+                
+                <span>|</span>
+                
+                    <a id="freetrial-footer" data-default-trialtitle="Free Trial">Free Trial</a>
+                
+            </div>
+            
+
+        </div>
+    </div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+</div>
+    
+    
+
+
+</div>
+
+
+    
+
+<div id="main">
+<div class="lazy articleInfo blogentry-articleInfo ">
+	<div class="article-container lazy bg-brand-blue blogentry-article-container ">
+		<div class="article-content">
+			<div class="article-content-bg bg-brand-blue"></div>
+			<div class="article-content-wrap">
+				<div class="columnContainer parbase section">
+					<div class="columns-wrapper blogentry-column-wrapper">
+						<div class="bg-default bg-opacity">&nbsp;</div>
+						<div class="container">
+							<div class="row columns-wrapper">
+								<div class="col text-left col-xs-12 col-md-6 col-lg-6">
+									<div class="headingComponent parbase section">
+										<span class="header-text">
+											<span class="blogline">
+
+												<span><span class="post-header_meta">
+	Aug 22, 2017
+</span></span>
+												<span><span class="post-header_meta">
+	<span> By </span><a name="dateAuthor" class="author" href="/blog/authors/elizabeth-pinkham.html">Elizabeth Pinkham</a>
+</span></span>
+											</span>
+										</span>
+									</div>
+									<div class="headingComponent parbase section articleInfo-title-wrapper">
+										<span class="articleInfo-title" id="Behind the Scenes: The Making of our Ohana Workplace Design">
+											<a name="Behind the Scenes: The Making of our Ohana Workplace Design" class="text-snow preventHover">
+												<h1 class="articleInfo-title-text">
+													Behind the Scenes: The Making of our Ohana Workplace Design
+												</h1>
+											</a>
+										</span>
+									</div>
+									<div class="barComponent parbase section">
+										<div class="articleInfo-section"></div>
+									</div>
+									<div class="bodyCopyComponent parbase section">
+										<div class="text-size-legal">
+											<p><b><div><p class="post-header_meta">
+	<div class="bodyCopyComponent parbase section">
+		<div class="text-size-legal">
+			<span class="articleInfo-tags">
+				in
+				
+					<a href="/blog/category/news.html">News</a>
+				
+			</span>
+		</div>
+	</div>
+</p></div></b></p>
+										</div>
+									</div>
+									<div class="htmlComponent parbase section">
+										<div class="articleInfo-social-section">
+											<div class="footer-social-links">
+												<div><div>
+	
+	<div id="socialshare" class="social-media-links">
+		<a class="social" onclick="SfdcWwwBase.socialshare.share.linkedin('Behind the Scenes: The Making of our Ohana Workplace Design','Salesforce')">
+			<svg class="salesforce-social-icon icon-sfdc-icon-linkedin-night"></svg>
+		</a>
+	
+		<a class="social" onclick="SfdcWwwBase.socialshare.share.twitter('Behind the Scenes: The Making of our Ohana Workplace Design','Salesforce')">
+			<svg class="salesforce-social-icon icon-sfdc-icon-twitter-night"></svg>
+		</a>
+	
+		<a class="social" onclick="SfdcWwwBase.socialshare.share.facebook('Behind the Scenes: The Making of our Ohana Workplace Design','Salesforce')">
+			<svg class="salesforce-social-icon icon-sfdc-icon-facebook-night"></svg>
+		</a>
+	</div>
+</div></div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col text-left col-xs-12 col-sm-6 col-md-6 col-lg-6">
+									<div class="parbase section imageComponent ">
+										<img class="lazy img-responsive articleInfo-image" src="//c1.sfdcstatic.com/content/dam/blogs/us/thumbnails/salesforce-ohana-workplace-design/ohana_floor_header.jpg" data-src="//c1.sfdcstatic.com/content/dam/blogs/us/thumbnails/salesforce-ohana-workplace-design/ohana_floor_header.jpg" alt="Behind the Scenes: The Making of our Ohana Workplace Design" title="Behind the Scenes: The Making of our Ohana Workplace Design">
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+<div>
+    
+    
+    <div class="templateGeneratedStyleClass_ blog-shared-newsletter"><div class="page_module page basicpage">
+
+
+    <div><div class="columnContainer parbase section"><div data-target-init-function="columnContainer.targetInit" class="    columns-wrapper     column-container-component">
+    <div class="bg-karl-the-fog  bg-opacity">&nbsp;
+    </div>
+    
+    
+    
+    
+    
+    
+    <div class="container">
+        
+        
+        
+        
+        <div class="row columns-wrapper
+            ">
+            <div class="col  text-left col-xs-12 col-sm-9 col-md-9 col-lg-9"><div class="spacerComponent parbase section"><div class="spacer " style="height:5px;"></div>
+
+</div>
+<div class="headingComponent parbase section">
+
+    
+<h2 id="want-more-awesome-content-sign-up-for-our-newsletter" class="
+        h3lg
+        text-night
+        text-left
+        salesforce-sans-thin
+        
+        
+        
+        
+        
+        
+        margin-20-top-lg margin-20-bottom-lg margin-0-bottom-xs
+        " style="; ">
+    
+    <a name="want-more-awesome-content-sign-up-for-our-newsletter" class="
+            text-night
+            preventHover
+            
+            ">
+        
+        
+        <span class="
+            header-text
+            
+            
+            ">
+            
+                Want more awesome content? Sign up for our newsletter. 
+            
+            
+        </span>
+        
+        
+    </a>
+</h2>
+
+
+
+</div>
+
+</div>
+            
+        
+            <div class="col  text-left col-xs-12 col-sm-3 col-md-3 col-lg-3"><div class="buttonCTAComponent parbase section">
+<div class="margin-10-top-md margin-0-top-xs text-left">
+    <div class="cta_0 buttonCTAItemComponent parbase">
+    
+    
+    
+
+    <div class="btn-container ">
+        <a role="button" class="btn btn-lg btn-primary salesforce-sans-regular    " data-content-replacement-close-color="sfdc-swap-button-day" href="https://www.salesforce.com/form/other/blog-newsletter.jsp?d=7010M000000mj1F" target="_blank">
+            
+            
+            <span>
+              
+                Subscribe
+              </span>
+            
+
+        </a>
+        
+    </div>
+
+
+</div>
+
+</div>
+</div>
+
+</div>
+            
+        </div>
+        
+        <div class="row">
+            
+        </div>
+    </div>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+    
+    
+
+
+</div>
+
+<div class="container bg-white" role="main">
+    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 blogentry-content">
+      
+        <section>
+<div class="backToPage">
+    <a href="/blog/">
+        <span>
+            <span class="salesforce-icon icon-sfdc-icon-left-arrow"></span>
+            Back to All Stories
+        </span>
+    </a>
+</div></section>
+        <section>
+
+
+
+
+<div class="50 padding-50-right-lg line-height-17">
+	<p>At <a href="https://www.salesforce.com/dreamforce/">Dreamforce</a> 2015, our CEO Marc Benioff and our leadership team stood in the middle of the Dreamforce Plaza and felt incredibly inspired by the energy culminating from the crowd and the entire experience that felt authentically Salesforce. Marc observed, “This is what our real estate should feel like, this is what we need to create in our buildings.” And so our real estate journey began right there, at Dreamforce, the world’s largest software event.</p>
+<p>I want to bring you behind the scenes to share how our new real estate design came to life and how it has become a powerful expression of who we are and what we care about. It's been an exciting opportunity to help share our culture, align our employees around the world, and create a memorable, inviting environment for everyone who enters our doors.</p>
+<p>With all the <a href="https://www.salesforce.com/blog/2017/08/salesforce-forbes-most-innovative-2017.html">incredible growth over the last 18 years</a>, our workspaces reflected moments in time instead of a cohesive design and strategy. We looked like very different companies depending on what door you opened. Sometimes even within the same building we looked like different companies on different floors. We were missing a huge opportunity to align everyone with a consistent brand experience and environment anytime you entered a Salesforce office, anywhere in the world. A new design that would be a celebration of the culture we know and love and unite our Ohana, which means 'family' in Hawaiian.</p>
+<p><img src="https://kapost-files-prod.s3.amazonaws.com/kapost/52f934574e14d3eb0c000856/studio/content/599b2c55575a6b00a8000189/html_bodies/1503362511-7196470b-6f61-42fa-8ab9-1c2ac319c453/36676331806_d2e8517bf0_o%20_1_.jpg" height="533" width="800"></p>
+<p>So we went back and looked at our workspaces with fresh eyes from our HQ in San Francisco to our offices in top markets such as NYC and London, and around the world, to pinpoint what our employees value most in the workplace. To deliver the best possible design, we partnered with <a href="https://www.cavagnero.com/"><i>Mark Cavagnero Associates</i></a>, a world-class architecture firm, and <a href="https://www.wisemangroup.com/"><i>The Wiseman Group</i></a>, award-winning residential interior designers, to help transform our offices and manifest the best of Salesforce in a physical space, globally.</p>
+<p>With our new team in tow, we defined the look we were aiming for. More startup than traditional enterprise company, a design standard that promoted collaboration, fun, sustainability, and employee wellness. To bring this to life, we honed in on core principles that felt warm and collaborative. This included clear sightlines, open flow on each floor to allow employees access to the best sunlight and views, inspiration from nature, sustainable materials, dedicated social lounges for collaboration and events, mindfulness areas on every floor for recharging, and residential-inspired finishes. The perfect equation for the Ohana design standard.</p>
+<p><img src="https://kapost-files-prod.s3.amazonaws.com/kapost/52f934574e14d3eb0c000856/studio/content/599b2c55575a6b00a8000189/html_bodies/1503341828-bf8c4350-e9da-47f0-9812-17bf186ca25c/iT680FdrE5Ro7GvuB1myfAi0qWRKlle04jd4Ew-aSWbtj4ti97tv5_emjq2w7C99StvCFQ_s2048.jpg" height="533" width="800"></p>
+<p>The next question was, where do we draw our inspiration? We connected with <a href="https://us.burberry.com/">Burberry’s</a> creative team to dive into their design philosophy and how their stores are brought to life. Their recommendation was to build a physical mock-up or “mock floor” to see our design elements in life-size versions. We built conference rooms, laid down the carpet options, tested lighting, tables, desks, chairs, fabrics and every nuance of the evolving design. The carpet choice evoked grass weaving through gravel paths, and ultimately the feeling of nature that became essential to the design. The grass cloth on the walls of the conference rooms evoke a tea house feeling, looking back out across the desks set on the “grass.” Throughout the entire conceptualization process, Marc visited the mock floor numerous times and focused his feedback on how to make the space feel warmer and residential. More differentiated. More Salesforce.</p>
+<p>What started as a test floor, turned into a test building. In our world of fast growth, pausing isn’t an option. With the pedal to the metal, we took the leap, hand in hand with our design partners and built out Salesforce East with the new Ohana design standards for 2,000 employees.</p>
+<p><img src="https://kapost-files-prod.s3.amazonaws.com/kapost/52f934574e14d3eb0c000856/studio/content/599b2c55575a6b00a8000189/html_bodies/1503341857-3bfc94f8-71cf-4c7a-8fbc-6964536bf0ef/35301880254_82123b9262_o.jpg" height="533" width="800"></p>
+<p><a href="https://www.bizjournals.com/sanfrancisco/blog/real-estate/2016/04/salesforce-office-sustainability-meditation-beniof.html">Salesforce East</a> officially opened in March 2016 and along the way we’ve learned a ton! We’ve iterated, evolved and moved forward. We held true to our core principles and documented the entire process -- 2,000+ pages online to keep our worldwide real estate team accurate in delivering the same experience globally.</p>
+<p>But for us, our real estate is much more than architecture and design. It’s about creating a place that has a lasting positive impact on our Ohana, inclusive of our employees, partners, customers, communities and the environment around us. Because the environment is a key stakeholder in our success, we are committed to integrating green building practices into our real estate. We recently announced that Salesforce East and Salesforce West located in our global HQ in San Francisco are <a href="https://www.salesforce.com/blog/2017/08/salesforce-renewable-energy.html">now sourcing 100% renewable energy</a>, getting us one step closer to our goal of reaching 100% renewable energy for all global operations. And our <a href="https://www.salesforce.com/blog/2017/04/topping-off-salesforce-tower.html">Salesforce Tower</a> is on track to be highest rated LEED v4 Platinum building in the US and Salesforce’s greenest project yet!</p>
+<p><img src="//c1.sfdcstatic.com/content/dam/blogs/us/Aug2017/ohana_floor_header_resize.jpg"></p>
+<p>Core to the philanthropic backbone of Salesforce, is giving back to the communities around us. To live up to this promise, we have exciting plans for the top floor of our named towers globally. Rather than have the top floor set aside for executive offices, we will open up these “Ohana Floors” with stunning 360-degree views for nonprofit events, volunteer activities and more. We’re excited to debut our first Ohana Floor in Salesforce East here in San Francisco and will soon open Ohana Floors in Salesforce Tower San Francisco, <a href="https://www.salesforce.com/blog/2016/03/salesforce-tower-new-york.html">New York</a>, <a href="https://www.salesforce.com/blog/2016/05/salesforce-tower-indianapolis.html">Indianapolis</a> and London. But it's not just the top floors, we also have learned about the magic of our front doors --- the large ground floor lobbies in our buildings where we welcome in the community for volunteer events, networking, coffee and snacks, even fun DJ's and live bands.</p>
+<p><img src="https://kapost-files-prod.s3.amazonaws.com/kapost/52f934574e14d3eb0c000856/studio/content/599b2c55575a6b00a8000189/html_bodies/1503362435-7d84fbb0-972d-4fb6-8508-cba6c574a262/36327302540_12b32ed66a_o%20_1_.jpg" height="533" width="800"></p>
+<p>Fast forward two years and the Ohana design has rolled out to thousands of seats worldwide and over 30% of our portfolio. You can experience it when you visit our offices in San Francisco, New York, London, Indianapolis, Hyderabad, Amsterdam, Bellevue, Singapore, Munich, Sydney and more. It’s been a spectacular journey full of learnings and we’re incredibly excited to see the continued impact our real estate has on our Ohana. Come visit us soon!</p>
+
+</div>
+</section>
+        
+
+        
+        <div class="row">
+            <span id="authorRoot" class="hidden" path="/content/blogs/us/en/authors/"></span>
+            
+            <div>
+                
+    
+    <div class="templateGeneratedStyleClass_ ">
+        <script type="text/javascript">$CQ(function() {
+            initializeTeaserLoader([{"path":"/content/campaigns/us-blog/master/contextual-cta/finserv-guided-tour","name":"finserv-guided-tour","title":"FinServ Guided Tour","campainName":"contextual-cta","campaignPath":"/content/campaigns/us-blog/master/contextual-cta","thumbnail":"/content/campaigns/us-blog/master/contextual-cta/finserv-guided-tour.thumb.png","id":"contextual-cta_finserv-guided-tour","segments":["/etc/segmentation/blog/financial-service-bottom-cta-us"],"tags":[]},{"path":"/content/campaigns/us-blog/master/contextual-cta/how-manufacturers-can-become-tech-savvy","name":"how-manufacturers-can-become-tech-savvy","title":"How Manufacturers Can Become Tech-Savvy","campainName":"contextual-cta","campaignPath":"/content/campaigns/us-blog/master/contextual-cta","thumbnail":"/content/campaigns/us-blog/master/contextual-cta/how-manufacturers-can-become-tech-savvy.thumb.png","id":"contextual-cta_how-manufacturers-can-become-tech-savvy","segments":["/etc/segmentation/blog/manufacturing-bottom-cta-us"],"tags":[]},{"path":"/content/campaigns/us-blog/master/contextual-cta/soit-2017---it-segment","name":"soit-2017---it-segment","title":"SoIT 2017 - IT segment","campainName":"contextual-cta","campaignPath":"/content/campaigns/us-blog/master/contextual-cta","thumbnail":"/content/campaigns/us-blog/master/contextual-cta/soit-2017---it-segment.thumb.png","id":"contextual-cta_soit-2017---it-segment","segments":["/etc/segmentation/blog/it-bottom-cta-us"],"tags":[]},{"path":"/content/campaigns/us-blog/master/contextual-cta/ai-revolution---AI-segment","name":"ai-revolution---AI-segment","title":"AI Revolution - AI segment","campainName":"contextual-cta","campaignPath":"/content/campaigns/us-blog/master/contextual-cta","thumbnail":"/content/campaigns/us-blog/master/contextual-cta/ai-revolution---AI-segment.thumb.png","id":"contextual-cta_ai-revolution---AI-segment","segments":["/etc/segmentation/blog/artificial-intelligence-bottom-cta-us"],"tags":[]},{"path":"/content/campaigns/us-blog/master/contextual-cta/skeptics-guide-to-crm--no-seg","name":"skeptics-guide-to-crm--no-seg","title":"Skeptic's Guide to CRM","campainName":"contextual-cta","campaignPath":"/content/campaigns/us-blog/master/contextual-cta","thumbnail":"/content/campaigns/us-blog/master/contextual-cta/skeptics-guide-to-crm--no-seg.thumb.png","id":"contextual-cta_skeptics-guide-to-crm--no-seg","segments":[],"tags":[]},{"path":"/content/campaigns/us-blog/master/contextual-cta/skeptics-guide-to-crm--sales-seg","name":"skeptics-guide-to-crm--sales-seg","title":"Skeptic's Guide to CRM","campainName":"contextual-cta","campaignPath":"/content/campaigns/us-blog/master/contextual-cta","thumbnail":"/content/campaigns/us-blog/master/contextual-cta/skeptics-guide-to-crm--sales-seg.thumb.png","id":"contextual-cta_skeptics-guide-to-crm--sales-seg","segments":["/etc/segmentation/blog/sales-bottom-cta-us"],"tags":[]},{"path":"/content/campaigns/us-blog/master/contextual-cta/connected-audience-report-comms-seg","name":"connected-audience-report-comms-seg","title":"Connected Audience Report","campainName":"contextual-cta","campaignPath":"/content/campaigns/us-blog/master/contextual-cta","thumbnail":"/content/campaigns/us-blog/master/contextual-cta/connected-audience-report-comms-seg.thumb.png","id":"contextual-cta_connected-audience-report-comms-seg","segments":["/etc/segmentation/blog/communications-bottom-cta-us"],"tags":[]},{"path":"/content/campaigns/us-blog/master/contextual-cta/shopper-first-retailing---retail-seg","name":"shopper-first-retailing---retail-seg","title":"Shopper First Retailing - Retail seg","campainName":"contextual-cta","campaignPath":"/content/campaigns/us-blog/master/contextual-cta","thumbnail":"/content/campaigns/us-blog/master/contextual-cta/shopper-first-retailing---retail-seg.thumb.png","id":"contextual-cta_shopper-first-retailing---retail-seg","segments":["/etc/segmentation/blog/commerce_ecomm---bottom-cta---us"],"tags":[]},{"path":"/content/campaigns/us-blog/master/contextual-cta/2018-state-of-sales---sales-segment","name":"2018-state-of-sales---sales-segment","title":"2018 State of Sales - Sales Segment","campainName":"contextual-cta","campaignPath":"/content/campaigns/us-blog/master/contextual-cta","thumbnail":"/content/campaigns/us-blog/master/contextual-cta/2018-state-of-sales---sales-segment.thumb.png","id":"contextual-cta_2018-state-of-sales---sales-segment","segments":["/etc/segmentation/blog/sales-bottom-cta-us"],"tags":[]},{"path":"/content/campaigns/us-blog/master/contextual-cta/trends-in-customer-trust---thought-leadership-seg","name":"trends-in-customer-trust---thought-leadership-seg","title":"Trends in Customer Trust - TL seg","campainName":"contextual-cta","campaignPath":"/content/campaigns/us-blog/master/contextual-cta","thumbnail":"/content/campaigns/us-blog/master/contextual-cta/trends-in-customer-trust---thought-leadership-seg.thumb.png","id":"contextual-cta_trends-in-customer-trust---thought-leadership-seg","segments":["/etc/segmentation/blog/thought-leadership---bottom-cta---us"],"tags":[]},{"path":"/content/campaigns/us-blog/master/contextual-cta/trends-in-customer-trust---no-seg","name":"trends-in-customer-trust---no-seg","title":"Trends in Customer Trust - no seg","campainName":"contextual-cta","campaignPath":"/content/campaigns/us-blog/master/contextual-cta","thumbnail":"/content/campaigns/us-blog/master/contextual-cta/trends-in-customer-trust---no-seg.thumb.png","id":"contextual-cta_trends-in-customer-trust---no-seg","segments":[],"tags":[]},{"path":"/content/campaigns/us-blog/master/contextual-cta/2018-forrester-wave-prm---sales-seg","name":"2018-forrester-wave-prm---sales-seg","title":"2018 Forrester Wave PRM - sales seg","campainName":"contextual-cta","campaignPath":"/content/campaigns/us-blog/master/contextual-cta","thumbnail":"/content/campaigns/us-blog/master/contextual-cta/2018-forrester-wave-prm---sales-seg.thumb.png","id":"contextual-cta_2018-forrester-wave-prm---sales-seg","segments":["/etc/segmentation/blog/sales-bottom-cta-us"],"tags":[]},{"path":"/content/campaigns/us-blog/master/contextual-cta/exceed-quota-sales-seg","name":"exceed-quota-sales-seg","title":"Exceed Quota - sales seg","campainName":"contextual-cta","campaignPath":"/content/campaigns/us-blog/master/contextual-cta","thumbnail":"/content/campaigns/us-blog/master/contextual-cta/exceed-quota-sales-seg.thumb.png","id":"contextual-cta_exceed-quota-sales-seg","segments":["/etc/segmentation/blog/sales-bottom-cta-us"],"tags":[]},{"path":"/content/campaigns/us-blog/master/contextual-cta/integration-guide---it-seg","name":"integration-guide---it-seg","title":"Integration Guide - IT seg","campainName":"contextual-cta","campaignPath":"/content/campaigns/us-blog/master/contextual-cta","thumbnail":"/content/campaigns/us-blog/master/contextual-cta/integration-guide---it-seg.thumb.png","id":"contextual-cta_integration-guide---it-seg","segments":["/etc/segmentation/blog/it-bottom-cta-us"],"tags":[]},{"path":"/content/campaigns/us-blog/master/contextual-cta/integration-guide-appexchange-seg","name":"integration-guide-appexchange-seg","title":"Integration Guide - AppExchange seg","campainName":"contextual-cta","campaignPath":"/content/campaigns/us-blog/master/contextual-cta","thumbnail":"/content/campaigns/us-blog/master/contextual-cta/integration-guide-appexchange-seg.thumb.png","id":"contextual-cta_integration-guide-appexchange-seg","segments":["/etc/segmentation/blog/appexchange---bottom-cta---us"],"tags":[]},{"path":"/content/campaigns/us-blog/master/contextual-cta/appycooking---TB-seg","name":"appycooking---TB-seg","title":"AppyCooking - TB seg","campainName":"contextual-cta","campaignPath":"/content/campaigns/us-blog/master/contextual-cta","thumbnail":"/content/campaigns/us-blog/master/contextual-cta/appycooking---TB-seg.thumb.png","id":"contextual-cta_appycooking---TB-seg","segments":["/etc/segmentation/blog/trailblazer-bottom-cta-us"],"tags":[]},{"path":"/content/campaigns/us-blog/master/contextual-cta/appexchange-forrester-wave---appex-seg","name":"appexchange-forrester-wave---appex-seg","title":"AppExchange Forrester Wave - appex seg","campainName":"contextual-cta","campaignPath":"/content/campaigns/us-blog/master/contextual-cta","thumbnail":"/content/campaigns/us-blog/master/contextual-cta/appexchange-forrester-wave---appex-seg.thumb.png","id":"contextual-cta_appexchange-forrester-wave---appex-seg","segments":["/etc/segmentation/blog/appexchange---bottom-cta---us"],"tags":[]},{"path":"/content/campaigns/us-blog/master/contextual-cta/trailhead-quest---trailblazer-seg","name":"trailhead-quest---trailblazer-seg","title":"Trailhead Quest - Trailblazer seg","campainName":"contextual-cta","campaignPath":"/content/campaigns/us-blog/master/contextual-cta","thumbnail":"/content/campaigns/us-blog/master/contextual-cta/trailhead-quest---trailblazer-seg.thumb.png","id":"contextual-cta_trailhead-quest---trailblazer-seg","segments":["/etc/segmentation/blog/trailblazer-bottom-cta-us"],"tags":[]},{"path":"/content/campaigns/us-blog/master/contextual-cta/trailhead-quest---no-seg","name":"trailhead-quest---no-seg","title":"Trailhead Quest - no seg","campainName":"contextual-cta","campaignPath":"/content/campaigns/us-blog/master/contextual-cta","thumbnail":"/content/campaigns/us-blog/master/contextual-cta/trailhead-quest---no-seg.thumb.png","id":"contextual-cta_trailhead-quest---no-seg","segments":[],"tags":[]},{"path":"/content/campaigns/us-blog/master/contextual-cta/trailhead-skills---career-seg","name":"trailhead-skills---career-seg","title":"Trailhead Skills - career seg","campainName":"contextual-cta","campaignPath":"/content/campaigns/us-blog/master/contextual-cta","thumbnail":"/content/campaigns/us-blog/master/contextual-cta/trailhead-skills---career-seg.thumb.png","id":"contextual-cta_trailhead-skills---career-seg","segments":["/etc/segmentation/blog/careers---bottom-cta---us"],"tags":[]},{"path":"/content/campaigns/us-blog/master/contextual-cta/trailhead-bam---TL-seg","name":"trailhead-bam---TL-seg","title":"Trailhead BAM - TL seg","campainName":"contextual-cta","campaignPath":"/content/campaigns/us-blog/master/contextual-cta","thumbnail":"/content/campaigns/us-blog/master/contextual-cta/trailhead-bam---TL-seg.thumb.png","id":"contextual-cta_trailhead-bam---TL-seg","segments":["/etc/segmentation/blog/thought-leadership---bottom-cta---us"],"tags":[]},{"path":"/content/campaigns/us-blog/master/contextual-cta/trailhead-getting-started---tb-seg","name":"trailhead-getting-started---tb-seg","title":"Trailhead Getting Started - TB seg","campainName":"contextual-cta","campaignPath":"/content/campaigns/us-blog/master/contextual-cta","thumbnail":"/content/campaigns/us-blog/master/contextual-cta/trailhead-getting-started---tb-seg.thumb.png","id":"contextual-cta_trailhead-getting-started---tb-seg","segments":["/etc/segmentation/blog/trailblazer-bottom-cta-us"],"tags":[]},{"path":"/content/campaigns/us-blog/master/contextual-cta/trailhead-getting-started---no-seg","name":"trailhead-getting-started---no-seg","title":"Trailhead Getting Started - no seg","campainName":"contextual-cta","campaignPath":"/content/campaigns/us-blog/master/contextual-cta","thumbnail":"/content/campaigns/us-blog/master/contextual-cta/trailhead-getting-started---no-seg.thumb.png","id":"contextual-cta_trailhead-getting-started---no-seg","segments":[],"tags":[]},{"path":"/content/campaigns/us-blog/master/contextual-cta/5th-state-of-marketing---mktg-seg","name":"5th-state-of-marketing---mktg-seg","title":"5th State of Marketing - Mktg seg","campainName":"contextual-cta","campaignPath":"/content/campaigns/us-blog/master/contextual-cta","thumbnail":"/content/campaigns/us-blog/master/contextual-cta/5th-state-of-marketing---mktg-seg.thumb.png","id":"contextual-cta_5th-state-of-marketing---mktg-seg","segments":["/etc/segmentation/blog/marketing-bottom-cta-us"],"tags":[]},{"path":"/content/campaigns/us-blog/master/contextual-cta/finserv-demo-video","name":"finserv-demo-video","title":"FinServ Demo","campainName":"contextual-cta","campaignPath":"/content/campaigns/us-blog/master/contextual-cta","thumbnail":"/content/campaigns/us-blog/master/contextual-cta/finserv-demo-video.thumb.png","id":"contextual-cta_finserv-demo-video","segments":["/etc/segmentation/blog/financial-service-bottom-cta-us"],"tags":[]},{"path":"/content/campaigns/us-blog/master/contextual-cta/blog-newsletter---no-seg","name":"blog-newsletter---no-seg","title":"Blog newsletter - no seg","campainName":"contextual-cta","campaignPath":"/content/campaigns/us-blog/master/contextual-cta","thumbnail":"/content/campaigns/us-blog/master/contextual-cta/blog-newsletter---no-seg.thumb.png","id":"contextual-cta_blog-newsletter---no-seg","segments":[],"tags":[]},{"path":"/content/campaigns/us-blog/master/contextual-cta/blog-newsletter---news-seg","name":"blog-newsletter---news-seg","title":"Blog newsletter - news seg","campainName":"contextual-cta","campaignPath":"/content/campaigns/us-blog/master/contextual-cta","thumbnail":"/content/campaigns/us-blog/master/contextual-cta/blog-newsletter---news-seg.thumb.png","id":"contextual-cta_blog-newsletter---news-seg","segments":["/etc/segmentation/blog/news---bottom-cta---us"],"tags":[]},{"path":"/content/campaigns/us-blog/master/contextual-cta/ethical-leadership-equality-seg","name":"ethical-leadership-equality-seg","title":"Ethical leadership report","campainName":"contextual-cta","campaignPath":"/content/campaigns/us-blog/master/contextual-cta","thumbnail":"/content/campaigns/us-blog/master/contextual-cta/ethical-leadership-equality-seg.thumb.png","id":"contextual-cta_ethical-leadership-equality-seg","segments":["/etc/segmentation/blog/equality-bottom-cta-us"],"tags":[]},{"path":"/content/campaigns/us-blog/master/contextual-cta/Einstein-service-demo-services-seg","name":"Einstein-service-demo-services-seg","title":"Einstein Service Demo","campainName":"contextual-cta","campaignPath":"/content/campaigns/us-blog/master/contextual-cta","thumbnail":"/content/campaigns/us-blog/master/contextual-cta/Einstein-service-demo-services-seg.thumb.png","id":"contextual-cta_Einstein-service-demo-services-seg","segments":["/etc/segmentation/blog/customer-service-bottom-cta-us"],"tags":[]},{"path":"/content/campaigns/us-blog/master/contextual-cta/Connected-Patient-Journey-HLS-seg","name":"Connected-Patient-Journey-HLS-seg","title":"Connected Patient Journey - HLS seg","campainName":"contextual-cta","campaignPath":"/content/campaigns/us-blog/master/contextual-cta","thumbnail":"/content/campaigns/us-blog/master/contextual-cta/Connected-Patient-Journey-HLS-seg.thumb.png","id":"contextual-cta_Connected-Patient-Journey-HLS-seg","segments":["/etc/segmentation/blog/health-cloud-bottom-cta-us"],"tags":[]},{"path":"/content/campaigns/us-blog/master/contextual-cta/2019-state-of-service---service-seg","name":"2019-state-of-service---service-seg","title":"2019 State of Service - service seg","campainName":"contextual-cta","campaignPath":"/content/campaigns/us-blog/master/contextual-cta","thumbnail":"/content/campaigns/us-blog/master/contextual-cta/2019-state-of-service---service-seg.thumb.png","id":"contextual-cta_2019-state-of-service---service-seg","segments":["/etc/segmentation/blog/customer-service-bottom-cta-us"],"tags":[]},{"path":"/content/campaigns/us-blog/master/contextual-cta/3-kpis-ebook----customer-success","name":"3-kpis-ebook----customer-success","title":"3 KPIs ebook -- customer success","campainName":"contextual-cta","campaignPath":"/content/campaigns/us-blog/master/contextual-cta","thumbnail":"/content/campaigns/us-blog/master/contextual-cta/3-kpis-ebook----customer-success.thumb.png","id":"contextual-cta_3-kpis-ebook----customer-success","segments":["/etc/segmentation/blog/customer-success---bottom-cta---us"],"tags":[]},{"path":"/content/campaigns/us-blog/master/contextual-cta/build-and-foster-ebook----customer-success","name":"build-and-foster-ebook----customer-success","title":"Build and foster ebook -- customer success","campainName":"contextual-cta","campaignPath":"/content/campaigns/us-blog/master/contextual-cta","thumbnail":"/content/campaigns/us-blog/master/contextual-cta/build-and-foster-ebook----customer-success.thumb.png","id":"contextual-cta_build-and-foster-ebook----customer-success","segments":["/etc/segmentation/blog/customer-success---bottom-cta---us"],"tags":[]},{"path":"/content/campaigns/us-blog/master/contextual-cta/build-and-foster-ebook----community","name":"build-and-foster-ebook----community","title":"Build and foster ebook -- community","campainName":"contextual-cta","campaignPath":"/content/campaigns/us-blog/master/contextual-cta","thumbnail":"/content/campaigns/us-blog/master/contextual-cta/build-and-foster-ebook----community.thumb.png","id":"contextual-cta_build-and-foster-ebook----community","segments":["/etc/segmentation/blog/community-bottom-cta-us"],"tags":[]},{"path":"/content/campaigns/us-blog/master/contextual-cta/b2b-commerce-healthcare-win-customer-ebook----commerce","name":"b2b-commerce-healthcare-win-customer-ebook----commerce","title":"B2B Commerce Healthcare win customer ebook -- commerce","campainName":"contextual-cta","campaignPath":"/content/campaigns/us-blog/master/contextual-cta","thumbnail":"/content/campaigns/us-blog/master/contextual-cta/b2b-commerce-healthcare-win-customer-ebook----commerce.thumb.png","id":"contextual-cta_b2b-commerce-healthcare-win-customer-ebook----commerce","segments":["/etc/segmentation/blog/retail-bottom-cta-us"],"tags":[]},{"path":"/content/campaigns/us-blog/master/contextual-cta/3rd-SMB-Trend-Report-smb-seg","name":"3rd-SMB-Trend-Report-smb-seg","title":"3rd SMB Trend Report SMB seg","campainName":"contextual-cta","campaignPath":"/content/campaigns/us-blog/master/contextual-cta","thumbnail":"/content/campaigns/us-blog/master/contextual-cta/3rd-SMB-Trend-Report-smb-seg.thumb.png","id":"contextual-cta_3rd-SMB-Trend-Report-smb-seg","segments":["/etc/segmentation/blog/small-business-bottom-cta-us"],"tags":[]},{"path":"/content/campaigns/us-blog/master/contextual-cta/SMB-essentials-seg","name":"SMB-essentials-seg","title":"SMB Essentials - essentials seg","campainName":"contextual-cta","campaignPath":"/content/campaigns/us-blog/master/contextual-cta","thumbnail":"/content/campaigns/us-blog/master/contextual-cta/SMB-essentials-seg.thumb.png","id":"contextual-cta_SMB-essentials-seg","segments":["/etc/segmentation/blog/smb-essentials---bottom-cta"],"tags":[]},{"path":"/content/campaigns/us-blog/master/contextual-cta/johnny-selected-seeds--commerce","name":"johnny-selected-seeds--commerce","title":"Johnny selected seeds -- commerce","campainName":"contextual-cta","campaignPath":"/content/campaigns/us-blog/master/contextual-cta","thumbnail":"/content/campaigns/us-blog/master/contextual-cta/johnny-selected-seeds--commerce.thumb.png","id":"contextual-cta_johnny-selected-seeds--commerce","segments":["/etc/segmentation/blog/retail-bottom-cta-us"],"tags":[]},{"path":"/content/campaigns/us-blog/master/contextual-cta/ideaexchange---IT-seg","name":"ideaexchange---IT-seg","title":"IdeaExchange - IT seg","campainName":"contextual-cta","campaignPath":"/content/campaigns/us-blog/master/contextual-cta","thumbnail":"/content/campaigns/us-blog/master/contextual-cta/ideaexchange---IT-seg.thumb.png","id":"contextual-cta_ideaexchange---IT-seg","segments":["/etc/segmentation/blog/it-bottom-cta-us"],"tags":[]},{"path":"/content/campaigns/us-blog/master/contextual-cta/enterprise-tech-trends---tdx-seg","name":"enterprise-tech-trends---tdx-seg","title":"Enterprise Tech Trends - TDX seg","campainName":"contextual-cta","campaignPath":"/content/campaigns/us-blog/master/contextual-cta","thumbnail":"/content/campaigns/us-blog/master/contextual-cta/enterprise-tech-trends---tdx-seg.thumb.png","id":"contextual-cta_enterprise-tech-trends---tdx-seg","segments":["/etc/segmentation/blog/tdx---bottom-cta"],"tags":[]},{"path":"/content/campaigns/us-blog/master/contextual-cta/enterprise-tech-trends-IT-seg","name":"enterprise-tech-trends-IT-seg","title":"Enterprise Tech Trends - IT seg","campainName":"contextual-cta","campaignPath":"/content/campaigns/us-blog/master/contextual-cta","thumbnail":"/content/campaigns/us-blog/master/contextual-cta/enterprise-tech-trends-IT-seg.thumb.png","id":"contextual-cta_enterprise-tech-trends-IT-seg","segments":["/etc/segmentation/blog/it-bottom-cta-us"],"tags":[]},{"path":"/content/campaigns/us-blog/master/contextual-cta/b2b-b2c-relationships----commerce-seg","name":"b2b-b2c-relationships----commerce-seg","title":"B2B B2C relationships - commerce seg","campainName":"contextual-cta","campaignPath":"/content/campaigns/us-blog/master/contextual-cta","thumbnail":"/content/campaigns/us-blog/master/contextual-cta/b2b-b2c-relationships----commerce-seg.thumb.png","id":"contextual-cta_b2b-b2c-relationships----commerce-seg","segments":["/etc/segmentation/blog/retail-bottom-cta-us"],"tags":[]},{"path":"/content/campaigns/us-blog/master/contextual-cta/b2b-b2c-relationships----consumer-goods-seg","name":"b2b-b2c-relationships----consumer-goods-seg","title":"B2B B2C relationships - consumer goods seg","campainName":"contextual-cta","campaignPath":"/content/campaigns/us-blog/master/contextual-cta","thumbnail":"/content/campaigns/us-blog/master/contextual-cta/b2b-b2c-relationships----consumer-goods-seg.thumb.png","id":"contextual-cta_b2b-b2c-relationships----consumer-goods-seg","segments":["/etc/segmentation/blog/consumer-goods---bottom-cta---us"],"tags":[]},{"path":"/content/campaigns/us-blog/master/contextual-cta/tdx-global-gatherings---tdx-seg","name":"tdx-global-gatherings---tdx-seg","title":"TDX Global Gatherings - tdx seg","campainName":"contextual-cta","campaignPath":"/content/campaigns/us-blog/master/contextual-cta","thumbnail":"/content/campaigns/us-blog/master/contextual-cta/tdx-global-gatherings---tdx-seg.thumb.png","id":"contextual-cta_tdx-global-gatherings---tdx-seg","segments":["/etc/segmentation/blog/tdx---bottom-cta"],"tags":[]},{"path":"/content/campaigns/us-blog/master/contextual-cta/state-of-the-connected-customer-3e---commerce-seg","name":"state-of-the-connected-customer-3e---commerce-seg","title":"2019 SoT Connected Customer 3e - commerce seg","campainName":"contextual-cta","campaignPath":"/content/campaigns/us-blog/master/contextual-cta","thumbnail":"/content/campaigns/us-blog/master/contextual-cta/state-of-the-connected-customer-3e---commerce-seg.thumb.png","id":"contextual-cta_state-of-the-connected-customer-3e---commerce-seg","segments":["/etc/segmentation/blog/retail-bottom-cta-us"],"tags":[]},{"path":"/content/campaigns/us-blog/master/contextual-cta/state-of-the-connected-customer-3e---cnx-seg","name":"state-of-the-connected-customer-3e---cnx-seg","title":"2019 SoT Connected Customer 3e - CNX seg","campainName":"contextual-cta","campaignPath":"/content/campaigns/us-blog/master/contextual-cta","thumbnail":"/content/campaigns/us-blog/master/contextual-cta/state-of-the-connected-customer-3e---cnx-seg.thumb.png","id":"contextual-cta_state-of-the-connected-customer-3e---cnx-seg","segments":["/etc/segmentation/blog/connections---bottom-cta---us"],"tags":[]},{"path":"/content/campaigns/us-blog/master/contextual-cta/state-of-the-connected-customer-3e---service-seg","name":"state-of-the-connected-customer-3e---service-seg","title":"2019 SoT Connected Customer 3e - Service seg","campainName":"contextual-cta","campaignPath":"/content/campaigns/us-blog/master/contextual-cta","thumbnail":"/content/campaigns/us-blog/master/contextual-cta/state-of-the-connected-customer-3e---service-seg.thumb.png","id":"contextual-cta_state-of-the-connected-customer-3e---service-seg","segments":["/etc/segmentation/blog/customer-service-bottom-cta-us"],"tags":[]},{"path":"/content/campaigns/us-blog/master/contextual-cta/state-of-the-connected-customer-3e---mkt-seg","name":"state-of-the-connected-customer-3e---mkt-seg","title":"2019 SoT Connected Customer 3e - Mkt seg","campainName":"contextual-cta","campaignPath":"/content/campaigns/us-blog/master/contextual-cta","thumbnail":"/content/campaigns/us-blog/master/contextual-cta/state-of-the-connected-customer-3e---mkt-seg.thumb.png","id":"contextual-cta_state-of-the-connected-customer-3e---mkt-seg","segments":["/etc/segmentation/blog/marketing-bottom-cta-us"],"tags":[]},{"path":"/content/campaigns/us-blog/master/contextual-cta/state-of-the-connected-customer-3e---no-seg","name":"state-of-the-connected-customer-3e---no-seg","title":"2019 SoT Connected Customer 3e - no seg","campainName":"contextual-cta","campaignPath":"/content/campaigns/us-blog/master/contextual-cta","thumbnail":"/content/campaigns/us-blog/master/contextual-cta/state-of-the-connected-customer-3e---no-seg.thumb.png","id":"contextual-cta_state-of-the-connected-customer-3e---no-seg","segments":[],"tags":[]},{"path":"/content/campaigns/us-blog/master/contextual-cta/state-of-the-connected-customer-3e---TL-seg","name":"state-of-the-connected-customer-3e---TL-seg","title":"2019 SoT Connected Customer 3e - TL seg","campainName":"contextual-cta","campaignPath":"/content/campaigns/us-blog/master/contextual-cta","thumbnail":"/content/campaigns/us-blog/master/contextual-cta/state-of-the-connected-customer-3e---TL-seg.thumb.png","id":"contextual-cta_state-of-the-connected-customer-3e---TL-seg","segments":["/etc/segmentation/blog/thought-leadership---bottom-cta---us"],"tags":[]},{"path":"/content/campaigns/us-blog/master/contextual-cta/newsroom-banner","name":"newsroom-banner","title":"Newsroom banner - news seg","campainName":"contextual-cta","campaignPath":"/content/campaigns/us-blog/master/contextual-cta","thumbnail":"/content/campaigns/us-blog/master/contextual-cta/newsroom-banner.thumb.png","id":"contextual-cta_newsroom-banner","segments":["/etc/segmentation/blog/news---bottom-cta---us"],"tags":[]},{"path":"/content/campaigns/us-blog/master/contextual-cta/commerce-solution-guide---general-commerce","name":"commerce-solution-guide---general-commerce","title":"Commerce Solution Guide - General Commerce","campainName":"contextual-cta","campaignPath":"/content/campaigns/us-blog/master/contextual-cta","thumbnail":"/content/campaigns/us-blog/master/contextual-cta/commerce-solution-guide---general-commerce.thumb.png","id":"contextual-cta_commerce-solution-guide---general-commerce","segments":["/etc/segmentation/blog/commerce_ecomm---bottom-cta---us"],"tags":[]},{"path":"/content/campaigns/us-blog/master/contextual-cta/2019-Holiday-Readiness-commerce-holiday-seg","name":"2019-Holiday-Readiness-commerce-holiday-seg","title":"2019 Holiday Readiness Guide - CC holiday seg","campainName":"contextual-cta","campaignPath":"/content/campaigns/us-blog/master/contextual-cta","thumbnail":"/content/campaigns/us-blog/master/contextual-cta/2019-Holiday-Readiness-commerce-holiday-seg.thumb.png","id":"contextual-cta_2019-Holiday-Readiness-commerce-holiday-seg","segments":["/etc/segmentation/blog/commerce_holiday---bottom-cta-us"],"tags":[]},{"path":"/content/campaigns/us-blog/master/contextual-cta/Sustainability-report","name":"Sustainability-report","title":"Sustainability Impact Report - Sustainability seg","campainName":"contextual-cta","campaignPath":"/content/campaigns/us-blog/master/contextual-cta","thumbnail":"/content/campaigns/us-blog/master/contextual-cta/Sustainability-report.thumb.png","id":"contextual-cta_Sustainability-report","segments":["/etc/segmentation/blog/sustainability--bottom-cta---us"],"tags":[]}], "random", "_content_blogs_data_globalelements_us_en_leaderboard_jcr_content_parsys_teaser", "false", null, "\/content\/blogs\/data\/globalelements\/us\/en\/leaderboard\/jcr:content\/parsys\/teaser");
+        });</script>
+        <div id="_content_blogs_data_globalelements_us_en_leaderboard_jcr_content_parsys_teaser" class="campaign campaign-contextual-cta"><noscript><div class="par parsys"><div class="rte section">
+
+
+<figure class="contextualad.parbase.section">		<a href="https://www.salesforce.com/form/pdf/state-of-the-connected-customer-3rd-edition/?d=7010M000002QRtsQAG&amp;nc=7010M000000ujR4QAI" target="_blank">			<img src="//c1.sfdcstatic.com/content/dam/blogs/us/banners/3rd State of the Connected Customer_BlogFooter.png" <="" a="">	</a></figure></div>
+
+</div>
+</noscript>
+        </div> 
+</div>
+    
+    
+
+
+            </div>
+            
+            
+
+            
+            
+            
+        </div>
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 blog-shared-right-rail">
+        <div>
+            
+    
+    <div class="templateGeneratedStyleClass_ "><div class="page_module page basicpage">
+
+
+    <div><div class="spacerComponent parbase section"><div class="spacer " style="height:35px;"></div>
+
+</div>
+<div class="columnContainer parbase section"><div class=" hidden-xs hidden-sm columns-wrapper bg-default  container-fluid  margin--30-bottom-lg margin--30-bottom-md margin--30-bottom-sm margin--30-bottom-xs">
+    
+        <div class="row columns-wrapper ">
+            <div class="col text-left col-xs-12 col-sm-12 col-md-12 col-lg-12"><div class="cardComponent parbase section">
+
+
+
+
+
+<div class="thumbnail   margin-0-top-lg margin-0-bottom-lg bg-default  ">
+    <div class="thumbnail-content thumbnail-linked" data-href="https://www.salesforce.com/solutions/essentials-enter-email/?%27?d=7010M000000nf02QAA&d=7010M000000uhLmQAI&nc=7010M000000uhLlQAI%27" data-new-window="true">
+        <a href="https://www.salesforce.com/solutions/essentials-enter-email/" class="hidden-lg hidden-md hidden-sm hidden-xs"></a>
+        
+        <div class="graphic ">
+    <div class="
+               
+                image-link" target="_blank">
+        
+        
+        
+            <img class="lazy hidden-xs hidden-sm  img-responsive  margin-0-top-lg margin-0-bottom-lg       " alt="Banner ad for Salesforce Essentials" src="//c1.sfdcstatic.com/etc/clientlibs/sfdc-aem-master/clientlibs_base/imgs/spacer.gif" data-src="//c1.sfdcstatic.com/content/dam/blogs/us/banners/2019/right-rail/fy20-essentials-right-rail-banner.jpg"/>
+            <img class="lazy hidden-md hidden-lg img-responsive  margin-0-top-lg margin-0-bottom-lg   " alt="Banner ad for Salesforce Essentials" src="//c1.sfdcstatic.com/etc/clientlibs/sfdc-aem-master/clientlibs_base/imgs/spacer.gif" data-src="//c1.sfdcstatic.com/content/dam/blogs/us/banners/2019/right-rail/fy20-essentials-right-rail-banner.jpg"/>
+        
+        
+        
+    </div>
+    
+
+
+</div>
+        
+        <div class="caption">
+            
+
+        </div>
+    </div>
+    
+</div>
+</div>
+<div class="headingComponent parbase section">
+
+    
+<h2 id="related-blog-posts" class="
+        h3
+        text-night
+        text-left
+        salesforce-sans-regular
+        
+        
+        
+        
+        
+        
+        margin--10-top-lg margin--10-top-md margin--10-top-sm margin--10-top-xs
+        " style="; ">
+    
+    <a name="related-blog-posts" class="
+            text-night
+            preventHover
+            
+            ">
+        
+        
+        <span class="
+            header-text
+            
+            
+            ">
+            
+                Related Blog Posts 
+            
+            
+        </span>
+        
+        
+    </a>
+</h2>
+
+
+
+</div>
+<div class="barComponent parbase section"><div class="margin-10-bottom-lg bg-brand-blue bar-align-center " style="height:3px;width:100%;"></div>
+
+</div>
+<div class="relatedBlogEntries section"><div class="vertical">
+    
+        
+
+            
+            
+
+            <div class="row">
+                
+
+    
+        
+            
+                <article>
+                    <figure class="article-listings_thumbnail col-xs-12 col-sm-3 col-md-3">
+                        <a href="/blog/2019/07/driving-customer-success-with-alibaba.html" title="Driving Customer Success With Alibaba">
+                            <img class="lazy img-responsive" src="//c1.sfdcstatic.com/content/dam/blogs/us/thumbnails/driving-customer-success-with-alibaba/salesforce-alibaba-thumb.png" alt="Driving Customer Success With Alibaba">
+                        </a>
+                    </figure>
+                    <div class="article-listing_details col-xs-12 col-sm-9 col-md-9 margin-20-bottom-lg">
+                        <p class="article-listing_meta">
+                            <a href="/blog/2019/07/driving-customer-success-with-alibaba.html">
+                                Driving Customer Success With Alibaba
+                            </a>
+                            <br>
+                            <span class="salesforce-sans-light">
+                                By
+                                <span class="text-cirrus"><a href="/blog/authors/ryan-aytay.html" title="Ryan Aytay" rel="author">
+                                    Ryan Aytay
+                                </a></span>
+                            </span>
+                        </p>
+                    </div>
+                </article>
+            
+        
+    
+
+            </div>
+
+            
+        
+
+            
+            
+
+            <div class="row">
+                
+
+    
+        
+            
+                <article>
+                    <figure class="article-listings_thumbnail col-xs-12 col-sm-3 col-md-3">
+                        <a href="/blog/2019/07/magic-quadrant-multi-experience-development-platform.html" title="Salesforce Is Named a Leader in the 2019 Gartner Magic Quadrant for Multi-Experience Development Platforms">
+                            <img class="lazy img-responsive" src="//c1.sfdcstatic.com/content/dam/blogs/us/thumbnails/magic-quadrant-multi-experience-development-platform/magic-quadrant-multi-experience-thumb.jpg" alt="Salesforce Is Named a Leader in the 2019 Gartner Magic Quadrant for Multi-Experience Development Platforms">
+                        </a>
+                    </figure>
+                    <div class="article-listing_details col-xs-12 col-sm-9 col-md-9 margin-20-bottom-lg">
+                        <p class="article-listing_meta">
+                            <a href="/blog/2019/07/magic-quadrant-multi-experience-development-platform.html">
+                                Salesforce Is Named a Leader in the 2019 Gartner Magic Quadrant for Multi-Experience Development Platforms
+                            </a>
+                            <br>
+                            <span class="salesforce-sans-light">
+                                By
+                                <span class="text-cirrus"><a href="/blog/authors/shannon-duffy.html" title="Shannon Duffy" rel="author">
+                                    Shannon Duffy
+                                </a></span>
+                            </span>
+                        </p>
+                    </div>
+                </article>
+            
+        
+    
+
+            </div>
+
+            
+        
+
+            
+            
+
+            <div class="row">
+                
+
+    
+        
+            
+                <article>
+                    <figure class="article-listings_thumbnail col-xs-12 col-sm-3 col-md-3">
+                        <a href="/blog/2019/07/leader-gartner-magic-quadrant-sales-force-automation.html" title="Hooray for SFA! Salesforce Named a Leader in the Gartner SFA Magic Quadrant for the 13th Consecutive Year.">
+                            <img class="lazy img-responsive" src="//c1.sfdcstatic.com/content/dam/blogs/us/thumbnails/leader-gartner-magic-quadrant-sales-force-automation/salesforce-astro-celebration.png" alt="Illustration of Astro">
+                        </a>
+                    </figure>
+                    <div class="article-listing_details col-xs-12 col-sm-9 col-md-9 margin-20-bottom-lg">
+                        <p class="article-listing_meta">
+                            <a href="/blog/2019/07/leader-gartner-magic-quadrant-sales-force-automation.html">
+                                Hooray for SFA! Salesforce Named a Leader in the Gartner SFA Magic Quadrant for the 13th Consecutive Year.
+                            </a>
+                            <br>
+                            <span class="salesforce-sans-light">
+                                By
+                                <span class="text-cirrus"><a href="/blog/authors/lynne-zaledonis.html" title="Lynne Zaledonis" rel="author">
+                                    Lynne Zaledonis
+                                </a></span>
+                            </span>
+                        </p>
+                    </div>
+                </article>
+            
+        
+    
+
+            </div>
+
+            
+        
+    
+</div>
+
+
+
+</div>
+
+</div>
+        </div>
+    
+</div>
+</div>
+<div class="columnContainer parbase section"><div data-target-init-function="columnContainer.targetInit" class="   hidden-xs hidden-sm columns-wrapper  container-fluid  margin-0-top-lg margin-0-top-md margin-0-top-sm margin-0-top-xs margin-0-bottom-lg margin-0-bottom-md margin-0-bottom-sm margin-0-bottom-xs column-container-component">
+    <div class="bg-default  bg-opacity">&nbsp;
+    </div>
+    
+    
+    
+    
+    
+    
+    
+        
+        
+        
+        
+        <div class="row columns-wrapper
+            " style="
+            500">
+            <div class="col  text-left col-xs-12 col-sm-12 col-md-12 col-lg-12"><div class="headingComponent parbase section">
+
+    
+<h2 id="most-popular-stories" class="
+        h3
+        text-night
+        text-left
+        salesforce-sans-bold
+        
+        
+        
+        
+        
+        
+        margin--10-top-lg margin--10-top-md margin--10-top-sm margin--10-top-xs
+        " style="; ">
+    
+    <a name="most-popular-stories" class="
+            text-night
+            preventHover
+            
+            ">
+        
+        
+        <span class="
+            header-text
+            
+            
+            ">
+            
+                Most Popular Stories 
+            
+            
+        </span>
+        
+        
+    </a>
+</h2>
+
+
+
+</div>
+<div class="cardComponent parbase section">
+
+
+
+
+
+<div class="thumbnail    bg-karl-the-fog  ">
+    <div class="thumbnail-content thumbnail-linked" data-href="/blog/2019/07/amazon-prime-day-news.html">
+        <a href="/blog/2019/07/amazon-prime-day-news.html" class="hidden-lg hidden-md hidden-sm hidden-xs" title="6 Ways Retailers Felt the Prime Day 2019 Effect">6 Ways Retailers Felt the Prime Day 2019 Effect</a>
+        <div><div class=" bg-brand-blue bar-align-center " style="height:2px;width:100%;"></div>
+
+</div>
+        <div class="graphic ">
+    <div class="
+               
+                image-link">
+        
+        
+        
+            <img class="lazy hidden-xs hidden-sm  img-responsive  margin-0-top-lg margin-0-bottom-lg       " alt="Illustration of Astro with Amazon Prime Day boxes" src="//c1.sfdcstatic.com/etc/clientlibs/sfdc-aem-master/clientlibs_base/imgs/spacer.gif" data-src="//c1.sfdcstatic.com/content/dam/blogs/us/thumbnails/amazon-prime-day-news/prime-day-thumb.png"/>
+            <img class="lazy hidden-md hidden-lg img-responsive  margin-0-top-lg margin-0-bottom-lg   " alt="Illustration of Astro with Amazon Prime Day boxes" src="//c1.sfdcstatic.com/etc/clientlibs/sfdc-aem-master/clientlibs_base/imgs/spacer.gif" data-src="//c1.sfdcstatic.com/content/dam/blogs/us/thumbnails/amazon-prime-day-news/prime-day-thumb.png"/>
+        
+        
+        
+    </div>
+    
+
+
+</div>
+        
+        <div class="caption">
+            <div class="headingSmallLightComponent headingComponent parbase section">
+
+    
+<h5 id="amazon-prime-day-2019-results" class="
+        h3
+        text-link
+        text-left
+        salesforce-sans-light
+        
+        
+        
+        
+        
+        
+        margin-10-bottom-lg margin-10-bottom-md margin-10-bottom-sm margin-10-bottom-xs
+        " style="; ">
+    
+    <a name="amazon-prime-day-2019-results" class="
+            text-link
+            preventHover
+            
+            ">
+        
+        
+        <span class="
+            header-text
+            head-text
+            
+            ">
+            
+                Amazon Prime Day 2019 Results 
+            
+            
+        </span>
+        
+        
+    </a>
+</h5>
+
+
+
+</div>
+
+
+        </div>
+    </div>
+    
+</div>
+</div>
+<div class="cardComponent parbase section">
+
+
+
+
+
+<div class="thumbnail   margin-20-bottom-lg bg-karl-the-fog  ">
+    <div class="thumbnail-content thumbnail-linked" data-href="/blog/2014/02/how-to-make-good-sales-pitch.html">
+        <a href="/blog/2014/02/how-to-make-good-sales-pitch.html" class="hidden-lg hidden-md hidden-sm hidden-xs" title="How to Make a Good Sales Pitch: 8 Tips to Give You an Edge">How to Make a Good Sales Pitch: 8 Tips to Give You an Edge</a>
+        <div><div class=" bg-brand-blue bar-align-center " style="height:2px;width:100%;"></div>
+
+</div>
+        
+        
+        <div class="caption">
+            <div class="headingSmallLightComponent headingComponent parbase section">
+
+    
+<h5 id="8-tips-to-perfect-your-sales-pitch" class="
+        h3
+        text-link
+        text-left
+        salesforce-sans-light
+        
+        
+        
+        
+        
+        
+        margin-10-bottom-lg margin-10-bottom-md margin-10-bottom-sm margin-10-bottom-xs
+        " style="; ">
+    
+    <a name="8-tips-to-perfect-your-sales-pitch" class="
+            text-link
+            preventHover
+            
+            ">
+        
+        
+        <span class="
+            header-text
+            head-text
+            
+            ">
+            
+                8 Tips to Perfect Your Sales Pitch 
+            
+            
+        </span>
+        
+        
+    </a>
+</h5>
+
+
+
+</div>
+
+
+        </div>
+    </div>
+    
+</div>
+</div>
+<div class="cardComponent parbase section">
+
+
+
+
+
+<div class="thumbnail   margin-20-bottom-lg bg-karl-the-fog  ">
+    <div class="thumbnail-content thumbnail-linked" data-href="/blog/2019/07/small-business-myths-debunked.html">
+        <a href="/blog/2019/07/small-business-myths-debunked.html" class="hidden-lg hidden-md hidden-sm hidden-xs" title="3 Common Small Business Myths Debunked">3 Common Small Business Myths Debunked</a>
+        <div><div class=" bg-brand-blue bar-align-center " style="height:2px;width:100%;"></div>
+
+</div>
+        
+        
+        <div class="caption">
+            <div class="headingSmallLightComponent headingComponent parbase section">
+
+    
+<h5 id="common-small-business-myths-debunked" class="
+        h3
+        text-link
+        text-left
+        salesforce-sans-light
+        
+        
+        
+        
+        
+        
+        margin-10-bottom-lg margin-10-bottom-md margin-10-bottom-sm margin-10-bottom-xs
+        " style="; ">
+    
+    <a name="common-small-business-myths-debunked" class="
+            text-link
+            preventHover
+            
+            ">
+        
+        
+        <span class="
+            header-text
+            head-text
+            
+            ">
+            
+                Common Small Business Myths Debunked 
+            
+            
+        </span>
+        
+        
+    </a>
+</h5>
+
+
+
+</div>
+
+
+        </div>
+    </div>
+    
+</div>
+</div>
+
+</div>
+            
+        </div>
+        
+        <div class="row">
+            
+        </div>
+    
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+    
+    
+
+
+        </div>
+    </div>
+    
+</div>
+</div>
+
+    <div role="contentinfo">
+    
+    
+    <div class="templateGeneratedStyleClass_ "><div class="page_module page basicpage">
+
+
+    <div><div class="barComponent parbase section"><div class=" bg-karl-the-fog bar-align-center " style="height:3px;width:100%;"></div>
+
+</div>
+<div class="powerFooterNavigationComponent columnContainer parbase section"><div class="columns-wrapper bg-snow hidden-xs hidden-sm">
+    <div class="container">
+        <div class="row columns-wrapper ">
+            <div class="col text-left col-sm-4 col-md-4 col-lg-4">
+                <div class="footer-logo">
+    <a href="/blog/" class="
+               
+                image-link">
+        
+        
+        
+        
+            <img class="lazy   img-responsive  margin-20-top-lg margin-20-top-md margin-20-top-sm margin-20-bottom-lg margin-20-bottom-md margin-20-bottom-sm       " alt="" src="//c1.sfdcstatic.com/etc/clientlibs/sfdc-aem-master/clientlibs_base/imgs/spacer.gif" data-src="//c1.sfdcstatic.com/content/dam/blogs/us/redesign/sfdc-blog-logo.png"/>
+            
+        
+        
+    </a>
+    
+
+
+</div>
+                
+                
+                
+            </div>
+            
+        
+            
+            <div class="col text-left col-sm-3 col-md-3 col-lg-3">
+</div>
+        
+            
+            <div class="col text-left col-sm-3 col-md-3 col-lg-3">
+</div>
+        
+            
+            <div class="col text-left col-sm-2 col-md-2 col-lg-2"><div class="htmlComponent parbase section">
+<div class="margin-40-top-lg margin-40-top-md margin-20-top-sm"><div class="footer-social-links">
+  
+
+<div class="social-media-links margin-30-bottom-lg">
+    <a href="http://www.linkedin.com/company/salesforce" target="_blank" title="LinkedIn"><span class="text-salesforce-gray icon-sfdc-icon-linkedin"></span></a>
+
+    <a href="http://twitter.com/salesforce" target="_blank" title="Twitter"><span class="text-salesforce-gray icon-sfdc-icon-twitter"></span></a>
+
+    <a href="http://www.facebook.com/salesforce" target="_blank" title="Facebook"><span class="text-salesforce-gray icon-sfdc-icon-facebook"></span></a>
+
+    <a href="http://www.youtube.com/Salesforce" target="_blank" title="YouTube"><span class="text-salesforce-gray icon-sfdc-icon-youtube"></span></a>
+</div>
+
+</div></div>
+
+</div>
+
+</div>
+        </div>
+    </div>
+</div>
+
+
+
+</div>
+<div class="footerNavigationComponent parbase section"><footer class="page-footer">
+    <div class="container">
+        <div class="region-selector ">
+            <div class="region-selector_dialog" tabindex="0">
+                <div class="region-selector_content">
+                    <div><div class="  columns-wrapper bg-default  container-fluid  ">
+    
+        <div class="row columns-wrapper ">
+            <div class="col text-left col-xs-12 col-sm-4 col-md-4 col-lg-4"><div class="headingComponent parbase section">
+
+    
+<h6 id="americas" class="
+        h5
+        text-night
+        text-left
+        salesforce-sans-regular
+        
+        
+        
+        
+        
+        
+        
+        " style="margin-top:0px;margin-right:0px;margin-bottom:20px;margin-left:0px;; ">
+    
+    <a name="americas" class="
+            text-night
+            preventHover
+            
+            ">
+        
+        
+        <span class="
+            header-text
+            
+            
+            ">
+            
+                Americas 
+            
+            
+        </span>
+        
+        
+    </a>
+</h6>
+
+
+
+</div>
+<div class="genericLinkListComponent list parbase section">
+    
+    
+    <ul class="generic-links  margin--10-top-lg">
+        <li>
+            <span class="li-wrap">
+                <a href="https://www.salesforce.com/br/blog/">Brasil (Português)</a>
+                
+                
+                
+            </span>
+        </li>
+    
+        <li>
+            <span class="li-wrap">
+                <a href="https://www.salesforce.com/ca/blog/">Canada (English)</a>
+                
+                
+                
+            </span>
+        </li>
+    
+        <li>
+            <span class="li-wrap">
+                <a href="/blog/">United States (English)</a>
+                
+                
+                
+            </span>
+        </li>
+    </ul>
+
+
+
+</div>
+
+</div>
+        
+            <div class="col text-left col-xs-12 col-sm-4 col-md-4 col-lg-4"><div class="headingComponent parbase section">
+
+    
+<h6 id="europe-middle-east-and-africa" class="
+        h5
+        text-night
+        text-left
+        salesforce-sans-regular
+        
+        
+        
+        
+        
+        
+        
+        " style="margin-top:0px;margin-right:0px;margin-bottom:20px;margin-left:0px;; ">
+    
+    <a name="europe-middle-east-and-africa" class="
+            text-night
+            preventHover
+            
+            ">
+        
+        
+        <span class="
+            header-text
+            
+            
+            ">
+            
+                Europe, Middle East, and Africa 
+            
+            
+        </span>
+        
+        
+    </a>
+</h6>
+
+
+
+</div>
+<div class="genericLinkListComponent list parbase section">
+    
+    
+    <ul class="generic-links  margin--10-top-lg">
+        <li>
+            <span class="li-wrap">
+                <a href="https://www.salesforce.com/de/blog/">Deutschland (Deutsch)</a>
+                
+                
+                
+            </span>
+        </li>
+    
+        <li>
+            <span class="li-wrap">
+                <a href="https://www.salesforce.com/fr/blog/">France (Français)</a>
+                
+                
+                
+            </span>
+        </li>
+    
+        <li>
+            <span class="li-wrap">
+                <a href="https://www.salesforce.com/nl/blog/">Nederland (Nederlands)</a>
+                
+                
+                
+            </span>
+        </li>
+    
+        <li>
+            <span class="li-wrap">
+                <a href="https://www.salesforce.com/uk/blog/">UK and Ireland (English)</a>
+                
+                
+                
+            </span>
+        </li>
+    </ul>
+
+
+
+</div>
+
+</div>
+        
+            <div class="col text-left col-xs-12 col-sm-4 col-md-4 col-lg-4"><div class="headingComponent parbase section">
+
+    
+<h6 id="asia-pacific" class="
+        h5
+        text-night
+        text-left
+        salesforce-sans-regular
+        
+        
+        
+        
+        
+        
+        
+        " style="margin-top:0px;margin-right:0px;margin-bottom:20px;margin-left:0px;; ">
+    
+    <a name="asia-pacific" class="
+            text-night
+            preventHover
+            
+            ">
+        
+        
+        <span class="
+            header-text
+            
+            
+            ">
+            
+                Asia Pacific 
+            
+            
+        </span>
+        
+        
+    </a>
+</h6>
+
+
+
+</div>
+<div class="genericLinkListComponent list parbase section">
+    
+    
+    <ul class="generic-links  margin--10-top-lg">
+        <li>
+            <span class="li-wrap">
+                <a href="https://www.salesforce.com/au/blog/">Australia (English)</a>
+                
+                
+                
+            </span>
+        </li>
+    
+        <li>
+            <span class="li-wrap">
+                <a href="https://www.salesforce.com/jp/blog/">日本 (日本語)</a>
+                
+                
+                
+            </span>
+        </li>
+    </ul>
+
+
+
+</div>
+
+</div>
+        </div>
+    
+</div>
+</div>
+                </div>
+            </div>
+            <div class="region-selector_button" tabindex="0">
+                <span class="region-selector_label">Global Blogs</span>
+                <span class="region-selector_icon icon-sfdc-icon-globe"></span>
+                <span class="region-selector_caret icon-sfdc-icon-up-arrow"></span>
+            </div>
+        </div>
+        <div class="page-footer_content">
+            <nav class="page-footer_links ">
+                <ul class="page-footer_links_list">
+                    
+                </ul>
+            </nav>
+            <div class="page-footer_legal">
+
+<link rel="stylesheet" href="//c1.sfdcstatic.com/etc.clientlibs/wcm/foundation/clientlibs/accessibility.min.6fe5d4427361a4c0ca5a75457e3e4256.css" type="text/css">
+
+
+    <p><a href="https://www.salesforce.com/company/privacy.jsp">Privacy</a> | <a href="https://www.salesforce.com/company/disclosure/">Responsible Disclosure</a> | <a href="https://trust.salesforce.com/">Trust</a> | <a href="https://www.salesforce.com/form/contact/contactme.jsp?d=70130000000EeYa">Contact</a></p>
+<p>© Copyright 2019 Salesforce.com, inc. <a href="http://www.salesforce.com/company/legal/intellectual.jsp">All rights reserved</a>. Various trademarks held by their respective owners. Salesforce.com, inc. Salesforce Tower, 415 Mission Street, 3rd Floor, San Francisco, CA 94105, United States<br />
+</p>
+<p> </p>
+
+</div>
+        </div>
+    </div>
+</footer>
+
+
+</div>
+<div class="dockedContainer parbase section"><div class="docked-container margin-20-right-lg fixed"><div class="fixedFooterCTAItemComponent parbase section"><div class="fixed-btn-container hidden-xs hidden-sm hidden-md">
+    
+    
+    
+    
+    
+    
+    
+
+    <div class="live-chat-container">
+      <div class="btn-container" id="livechatv2">
+           <!-- livechat v2 -->
+               
+   			     <div>
+<div class="snippet-data" data-snippet-sfendpoint="https://d.la1-c2-phx.salesforceliveagent.com/chat" data-snippet-contenturl="https://c.la1-c2-phx.salesforceliveagent.com/content" data-snippet-agenturl="https://d.la1-c2-phx.salesforceliveagent.com/chat" data-snippet-initesw="https://org62.my.salesforce.com">
+    <div><style type='text/css'>
+    .bg-cirrus[href]:hover img {
+        border: 2px solid #0097EE;
+    }
+    .embeddedServiceHelpButton .helpButton,
+    .embeddedServiceSidebar a.embeddedServiceSidebarMinimizedContainer,
+    .embeddedServiceSidebar.layout-docked .dockableContainer {
+        right: 175px;
+    }
+    .embeddedServiceHelpButton {
+        display: none;
+        bottom: 0;
+        top: auto;
+    }
+    //Style used to keep button on the top of the page ( specially to fix IPAD error).
+    //Bug: W-4434592 - Live Chat tab moves with the page scroll on iPad
+    //GUS: https://gus.lightning.force.com/one/one.app#/sObject/a07B0000004KqNIIA0
+    .embeddedServiceSidebar.modalContainer .embeddedServiceSidebarMinimizedContainer {
+        bottom: 0;
+        top: auto;
+    }
+    .embeddedServiceSidebar .isMinimized.embeddedServiceSidebarMinimizedContainer,
+    .embeddedServiceHelpButton .helpButton .uiButton.helpButtonDisabled,
+    .embeddedServiceHelpButton .helpButton .uiButton.helpButtonEnabled,
+    .embeddedServiceSidebar .helpButton.isMinimized {
+        background-color: #215ca0;
+        font-size: inherit;
+        max-width: inherit;
+        padding-left: 35px;
+        padding-right: 0;
+        width: 164px;
+        min-width: 0;
+    }
+    @media only screen and (min-width: 48em) {
+        .embeddedServiceHelpButton .helpButton,
+        .embeddedServiceSidebar a.embeddedServiceSidebarMinimizedContainer {
+            height: 35px;
+            font-family: 'SalesforceSansRegular', Helvetica, Arial, sans-serif !important;
+        }
+        .embeddedServiceHelpButton .uiButton.helpButtonEnabled .embeddedServiceIcon,
+        .embeddedServiceSidebar .helpButton.embeddedServiceSidebarMinimizedContainer .embeddedServiceIcon,
+        .embeddedServiceHelpButton .helpButtonDisabled .embeddedServiceIcon,
+        .embeddedServiceSidebarMinimizedContainer .minimizedImage {
+            display: none;
+        }
+        .embeddedServiceHelpButton .uiButton .helpButtonLabel {
+            bottom: 4.6px;
+            left: 4px;
+            font-size: 14px;
+            letter-spacing: .102em;
+        }
+        .embeddedServiceHelpButton .helpButton .uiButton,
+        .embeddedServiceSidebar .isMinimized {
+            border-radius: 4px 4px 0 0;
+        }
+    }
+    .embeddedServiceLiveAgentStateChatHeaderOption .optionName,
+    .embeddedServiceLiveAgentStateChatHeader:not(.alert) .message,
+    .embeddedServiceSidebarButton .label {
+        text-transform: uppercase;
+    }
+    .embeddedServiceSidebarButton .label {
+        font-size: 14px;
+        letter-spacing: 1.428px;
+        font-weight: bold;
+    }
+    .embeddedServiceLiveAgentStateChatInputFooter.dynamicResizeTextOneRow .chasitorText {
+        font-size: 14px;
+    }
+    .embeddedServiceSidebarHeader #headerTextLabel,
+    .embeddedServiceSidebarHeader #headerSubtext {
+        letter-spacing: 1.428px;
+    }
+    .embeddedServiceSidebarMinimizedContainer {
+        box-shadow: none;
+    }
+    .embeddedServiceHelpButton .helpButton .uiButton {
+        box-shadow: none;
+    }
+</style></div>
+    <div><style type='text/css'>
+    .embeddedServiceLoadingBalls .second,
+    .embeddedServiceLoadingBalls .third {
+        display: none;
+    }
+    .embeddedServiceLoadingBalls.animated .first {
+        animation: none;
+        width: 60%;
+        height: 60px;
+        border-radius: 0px;
+        background-color: transparent;
+        background-image: url("https://c2.sfdcstatic.com/content/dam/web/en_us/www/images/live-agent/astro-waiting-snap-ins-wave.gif"); //// replace this with your gif
+        background-position: center;
+        background-size: cover;
+    }
+    .embeddedServiceHelpButton .helpButton .uiButton {
+        background-color: #215CA0;
+        font-family: "Salesforce Sans", sans-serif;
+    }
+    .embeddedServiceHelpButton .helpButton .uiButton:focus {
+        outline: 1px solid #215CA0;
+    }
+    @font-face {
+font-family: 'Salesforce Sans';
+src: url('https://c1.sfdcstatic.com/etc/clientlibs/sfdc-aem-master/clientlibs_base/fonts/SalesforceSans-Regular.woff') format('woff'), url('https://c1.sfdcstatic.com/etc/clientlibs/sfdc-aem-master/clientlibs_base/fonts/SalesforceSans-Regular.ttf) format('truetype');
+}
+</style>
+
+<script type='text/javascript' src='https://service.force.com/embeddedservice/3.0/esw.min.js'></script>
+
+<script type='text/javascript'>
+    var initESW = function(gslbBaseURL) {
+
+        embedded_svc.settings.displayHelpButton = true; //Or false
+
+        embedded_svc.settings.language = 'en-US'; //For example, enter 'en' or 'en-US'
+
+
+
+        embedded_svc.settings.defaultMinimizedText = "LET'S CHAT"; //(Defaults to Chat with an Expert)
+
+        //embedded_svc.settings.disabledMinimizedText = '...'; //(Defaults to Agent Offline)
+        //embedded_svc.settings.loadingText = ''; //(Defaults to Loading)
+        //embedded_svc.settings.storageDomain = 'yourdomain.com'; //(Sets the domain for your deployment so that visitors can navigate subdomains during a chat session)
+
+        // Settings for Live Agent
+embedded_svc.settings.chatbotAvatarImgURL = 'https://c1.sfdcstatic.com/content/dam/web/en_us/www/images/live-agent/icon-chat-bot.png';
+        embedded_svc.settings.avatarImgURL = "https://c2.sfdcstatic.com/content/dam/web/en_us/www/images/live-agent/snap-ins-agent-astro.png";
+        embedded_svc.settings.prechatBackgroundImgURL = "https://c2.sfdcstatic.com/content/dam/web/en_us/www/images/live-agent/snap-ins-pre-chat-banner.png";
+
+        embedded_svc.settings.waitingStateBackgroundImgURL = '';
+        embedded_svc.settings.smallCompanyLogoImgURL = '';
+        embedded_svc.settings.enabledFeatures = ['LiveAgent'];
+        embedded_svc.settings.entryFeature = 'LiveAgent';
+
+embedded_svc.settings.extraPrechatInfo = [{
+"entityFieldMaps":[{
+"doCreate":true,
+"doFind":false,
+"fieldName":"LastName",
+"isExactMatch":true,
+"label":"Last Name"},
+{"doCreate":true,
+"doFind":false,
+"fieldName":"FirstName",
+"isExactMatch":true,
+"label":"First Name"},
+{"doCreate":true,
+"doFind":false,
+"fieldName":"Email",
+"isExactMatch":true,
+"label":"Email"}],
+"entityName":"Lead"}];
+  
+
+      embedded_svc.init('https://org62.my.salesforce.com', 'https://store.salesforce.com/', gslbBaseURL, '00D000000000062', 'Sales', {
+            baseLiveAgentContentURL: 'https://c.la1-c2-phx.salesforceliveagent.com/content',
+            deploymentId: '57230000000DmsR',
+            buttonId: '57330000000MBlR',
+            baseLiveAgentURL: 'https://d.la1-c2-phx.salesforceliveagent.com/chat',
+            eswLiveAgentDevName: 'EmbeddedServiceLiveAgent_Parent04I0M000000PAsDUAW_15f4f60cb08'
+        });
+    };
+    if (!window.embedded_svc) {
+        var s = document.createElement('script');
+        s.setAttribute('src', 'https://org62.my.salesforce.com/embeddedservice/3.0/esw.min.js');
+        s.onload = function() {
+            initESW(null);
+        };
+        document.body.appendChild(s);
+    } else {
+        initESW('https://org62.my.salesforce.com');
+    }
+</script></div>
+</div></div>
+      </div>
+      <div class="btn-container" id="liveagent_button_offline_57330000000MBlR">
+          <a class="btn btn-lg-rounded-top-corners bg-cirrus text-snow salesforce-sans-regular chat-trigger-v2-contact btn-lg" role="button" href="/form/contact/contactme.jsp?d=70130000000Fm5e">
+              CONTACT US
+          </a>
+      </div>
+    </div>
+
+</div>
+
+
+
+</div>
+<div class="randomImageComponent list parbase section"><div class="randomImage " data-embeddedto=".embeddedServiceHelpButton .helpButton,.embeddedServiceSidebarMinimizedContainer sub" data-srcimage="/content/dam/web/en_us/shared/pilot/male-1-small@2x.jpg" data-embeddedimage="true">
+
+    
+
+</div>
+
+
+</div>
+<div class="referenceComponent reference parbase section"><div class="cq-dd-paragraph"><div class="htmlcomponent htmlComponent parbase">
+<div><script>
+$( document ).ready(function() {
+$(".page-footer_legal > p:first").append('&nbsp;|&nbsp;<a data-ignore-geolocation="true" class="optanon-toggle-display" href="#">Cookie Preferences</a>');
+});
+</script>
+</div>
+
+</div>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+    
+    
+
+
+</div>
+
+    
+
+<script>
+    var SfdcWwwBase = SfdcWwwBase || {};
+    SfdcWwwBase.config = {
+        liveAgentOrganizationId: "00D000000000062",
+        liveAgentButtonId: "57330000000MBlR",
+        liveAgentDeploymentId: "57230000000DmsR",
+        liveAgentEndpointUrl: "https:\/\/d.la1\u002Dc2\u002Dphx.salesforceliveagent.com\/chat",
+        liveChatWaterfallDisabled: "false" === "true",
+        liveChatWaterFallDelay: "30",
+        liveChatModalPath: ""
+    };
+</script>
+<script>
+    var SfdcBlogsRedesign = SfdcBlogsRedesign || {};
+    SfdcBlogsRedesign.config = {
+        liveAgentOrganizationId: "00D000000000062",
+        liveAgentButtonId: "57330000000MBlR",
+        liveAgentDeploymentId: "57230000000DmsR",
+        liveAgentEndpointUrl: "https:\/\/d.la1\u002Dc2\u002Dphx.salesforceliveagent.com\/chat",
+        liveChatWaterfallDisabled: "false" === "true",
+        liveChatWaterFallDelay: "30",
+        liveChatModalPath: ""
+    };
+</script>
+
+
+<div class="cloudservice salesforce-dmp-tags">
+</div>
+
+
+
+    
+<script type="text/javascript" src="//c1.sfdcstatic.com/etc/clientlibs/sfdc-aem-master/clientlibs_analytics_bottom.min.b71151f40bf3cb74c3d467dc2bc62bad.js"></script>
+
+
+
+
+
+<div aria-hidden="true">
+    <script type="text/javascript">typeof _satellite !== 'undefined' && _satellite.pageBottom();</script>
+</div>
+
+    
+<script type="text/javascript" src="//c1.sfdcstatic.com/etc/clientlibs/sfdc-aem-master/clientlibs_flexslider.min.44821b9be1851157e2b93916f2506b7f.js"></script>
+<script type="text/javascript" src="//c1.sfdcstatic.com/etc/clientlibs/sfdc-aem-master/clientlibs_yall.min.c9f81c8055ef9e0e4a4f084c3ce72f85.js"></script>
+<script type="text/javascript" src="//c1.sfdcstatic.com/etc/clientlibs/sfdc-aem-master/clientlibs_blogs_base.min.dd58edd62cc6edeaa41167dee896cd19.js"></script>
+<script type="text/javascript" src="//c1.sfdcstatic.com/etc/clientlibs/sfdc-aem-master/clientlibs_search.min.95f9a4e5266e132ee7b94aad644150c7.js"></script>
+<script type="text/javascript" src="//c1.sfdcstatic.com/etc/clientlibs/sfdc-www/clientlibs_sfdc_forms.min.c31842f63c784febec66a19a275b50a1.js"></script>
+<script type="text/javascript" src="//c1.sfdcstatic.com/etc/clientlibs/sfdc-blogs-redesign/clientlibs_base.min.541302e6a848b4a5034ed34aecfcf7bc.js"></script>
+
+
+
+
+
+<script type="text/javascript" src="//c1.sfdcstatic.com/etc.bundles/sfdc-blogs-redesign/bundles/scriptloader.bundle.1bfa638fb0083417eb48.js"></script><script type="text/javascript" src="//c1.sfdcstatic.com/etc.bundles/sfdc-blogs-redesign/bundles/all.bundle.1bfa638fb0083417eb48.js"></script>
+
+<!--ANALYTICS BOTTOM-->
+    
+    
+
+
+
+    
+
+</body>
+
+</html>
+

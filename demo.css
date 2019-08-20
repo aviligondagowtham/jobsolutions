@@ -1,0 +1,114 @@
+
+*{
+  padding: 0px;
+  margin: 0px;
+}
+label{
+  font-size: 20px;
+}
+
+    input[type=text],input[type=email], gender, input[type=password], input[type=number]  {
+      width: 50%; /* Full width */
+      padding: 12px; /* Some padding */
+      border: 1px solid #ccc; /* Gray border */
+      border-radius: 4px; /* Rounded borders */
+      box-sizing: border-box; /* Make sure that padding and width stays in place */
+      margin-top: 6px; /* Add a top margin */
+      margin-bottom: 16px; /* Bottom margin */
+      resize:vertical; /* Allow the user to vertically resize the textarea (not horizontally) */
+    }
+
+ .navbar .nav navbar-nav navbar-right li a{
+   padding-top:80px;
+}
+.navbar-header .header{
+  color:black;
+}
+.navbar h4:hover{
+  cursor: pointer;
+color:red;
+
+
+}
+
+.banner h1{
+  padding-top: 160px;
+  font-size: 50px;
+  letter-spacing: 6px;
+  font-weight: 500;
+  border-top:0px!important;
+}
+.searchjob{
+  background-image: linear-gradient(to right, #6db9ef, #7ce08a);
+  padding: 30px;
+
+}
+
+
+.searchjob .form-control{
+  width:300px;
+  display:inline-block;
+  box-shadow: none !important;
+
+}
+#recruiters img{
+  width:700px;
+}
+#recruiters h3{
+  color:black;
+}
+.jobs{
+  background:#f8f8fa;
+  padding: 50px;
+
+
+}
+#jobs h5{
+  color:brown;
+}
+
+.p .fa{
+color:blue;
+margin-right:10px;
+margin-top: 5px;
+}
+.p .fas{
+color:blue;
+margin-right:5px;
+margin-top: 5px;
+}
+#recruiters{
+  background-color:RGB(252, 169, 3);
+}
+#recruiters h2{
+  color:blue;
+}
+.p small{
+  background: #efefef;
+  padding:1px 5px;
+  margin:0 5px;
+}
+.apply button{
+  height:40px;
+  background-image: linear-gradient(to right, #6db9ef, #7ce08a);
+  padding:7px;
+}
+.apply button .btn btn-primary{
+  float:right;
+  background: transparent;
+  border:2px solid #fff;
+  box-shadow: none!important;
+}
+.item img{
+  width:100%;
+  height:400px !important;
+}
+.col-lg-4 .thumbnail img{
+  height:200px;
+  width:100% !important;
+
+}
+.background{
+  background-color: black;
+  color:white;
+}
